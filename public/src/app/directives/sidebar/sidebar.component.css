@@ -1,0 +1,96 @@
+.sidebar {
+    position: fixed;
+    top: 65px !important;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    padding: 0px 0 0;
+    box-shadow: 6px 2px 13px 0 rgba(141, 162, 245, 0.07);
+    transition: .5s;
+    width:270px;
+    font-size:15px;
+    background: #fff;
+    /* background: url('../../../assets/img/background.jpg') no-repeat; */
+    /* background-size: cover; */
+}
+/* width */
+.sidebar-sticky::-webkit-scrollbar {
+    width: 8px;
+    border-radius:50px;
+    opacity: .5; 
+  }
+  
+  /* Track */
+  .sidebar-sticky::-webkit-scrollbar-track {
+    background: transparent; 
+    border-radius:50px;
+  }
+   
+  /* Handle */
+  .sidebar-sticky::-webkit-scrollbar-thumb {
+    background:linear-gradient(233deg, #0196f991, #4823ffa6);
+    border-radius:50px;
+  }
+  .sidebar-sticky li.nav-item {
+    width: 100%;
+}
+.sidebar-sticky {
+    position: relative;
+    top: 5px;
+    height: calc(100vh - 48px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 15px;
+    padding-bottom: 80px;
+}
+.sidebar  li a{
+    color: #000;
+    transition: .3s;
+    white-space: nowrap;
+    margin: 5px 0;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 13px 20px;
+}
+.sidebar .nav-link.active {
+    color: #fff;
+    background: linear-gradient(233deg, #52b5ef, #873cee);
+}
+.sidebar .nav-link.active img {
+    filter: brightness(0) invert(100) !important;
+}
+.sidebar .nav-link:hover .feather, .sidebar .nav-link.active .feather {
+    color: inherit;
+    
+}
+.sidebar .nav-link:hover .feather, .sidebar .nav-link.active .feather {
+    color: inherit;
+}
+
+.sidebar .nav-link .feather {
+    margin-right: 25px;
+    color: #999;
+}
+.feather {
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+}
+.sidebar-heading {
+    font-size: .75rem;
+    text-transform: uppercase;
+}
+.text-muted {
+    color: #6c757d!important;
+}
+a.nav-link img {
+    filter: brightness(0) invert(0);
+}
+a.nav-link.active img {
+    filter: inherit;
+}
+.modal-content strong{
+    font-weight: 900;
+    margin: 15px;
+    display: block;
+}

@@ -1,0 +1,103 @@
+<nav class="sidebar" >
+  <div class="sidebar-sticky">
+    <!-- <ul class="nav flex-column"> -->
+      <!-- Admin -->
+      <div *ngIf="UserData.user_role === 'Admin'">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item" style="width: 100%">
+            <a class="nav-link" routerLink='/race-track' routerLinkActive="active">
+              Racetracks
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink='/servicemans' routerLinkActive="active">
+              Servicemans
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink='/equipments' routerLinkActive="active">
+              Equipments
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink='/general-category' routerLinkActive="active">
+              Categories
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink='/subcategory' routerLinkActive="active">
+              Subcategories
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink='/types' routerLinkActive="active">
+              Types
+            </a>
+          </li>
+          <li class="nav-item" style="width: 100%">
+            <a class="nav-link"  routerLink='/users' routerLinkActive="active">
+              Users
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Serviceman -->
+      <div *ngIf="UserData.user_role === 'Serviceman'">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">
+              <span>Serviceman Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink='/serviceman' routerLinkActive="active">
+              Serviceman
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:;" data-target="#CodeModal" data-toggle="modal">
+              Log Out
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      
+  </div>
+</nav>
+
+<!-- <nav class="sidebar" *ngIf="UserData.user_role === 'Equipment'">
+  <div class="sidebar-sticky">
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="dashboard" routerLinkActive="active">
+          <span>Serviceman Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink='serviceman' routerLinkActive="active">
+          Serviceman
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav> -->
+<div class="modal fade" id="CodeModal" tabindex="-1" role="dialog" aria-labelledby="CodeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content ">
+      <div class="modal-body py-5 text-center">
+        <h3>Log Out</h3>
+        <p>Are you sure you want to log out ?</p>
+        <button type="submit" (click)="logout()" class="btn btn-secondary yes-no" data-dismiss="modal">Yes</button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" class="btn btn-secondary yes-no"
+          data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,339 @@
+<div class="header">
+  <app-header></app-header>
+  <div class="row">
+    <div class="col">
+      <aside>
+        <div class="sidebar_wrap">
+          <app-sidebar></app-sidebar>
+        </div>
+      </aside>
+    </div>
+    <div class="col-9">
+      <div class="container-fluid  main-content content_wrapper">
+        <div class="overlay"></div>
+        <div class="top_head clearfix pr-3">
+          <div class="main-title float-left">
+            LIST OF RACETRACKS
+          </div>
+          <div class="float-right">
+            <button class="btn btn-secondary " data-target="#RaceTracksModal" data-toggle="modal" type="button">Add
+              Racetrack
+            </button>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Type</th>
+              <th>OContact</th>
+              <th>OEmail</th>
+              <th>Shared</th>
+              <th>Equipments</th>
+              <th>Servicemans</th>
+              <th class="text-center">Status</th>
+              <th class="text-center">Action</th>
+            </thead>
+            <tbody>
+              <ng-container>
+                <tr *ngFor="let rt of racetrackConfig?.data">
+                  <td><span><img [src]="rt.imageUrl" alt="image"></span></td>
+                  <!-- <td><span><img src="{{imageBaseUrl}}/{{rt?.image_uid}}/{{rt?.images[0]}}" alt=""></span></td> -->
+                  <!-- <td>{{rt?.images}}</td> -->
+                  <td>{{rt?.name}}</td>
+                  <td>{{rt?.type.name}}</td>
+                  <td>{{rt?.owner_contact}}</td>
+                  <td>{{rt?.owner_email}}</td>
+                  <td>{{rt?.shared == 0 ? 'No' : 'Yes'}}</td>
+                  <td>{{rt?.racetrack_equipments.length == 0  ? 'No' : 'Yes'}}</td>
+                  <td>{{rt?.racetrack_servicemans.length == 0  ? 'No' : 'Yes'}}</td>
+                  <td class="text-center"><span class="active st_btn" *ngIf="rt?.status == 'Active'"
+                      (click)="changeStatus('Inactive',rt.id)">Active</span>
+                    <span class="inactive st_btn" *ngIf="rt?.status == 'Inactive'"
+                      (click)="changeStatus('Active',rt.id)">Inactive</span>
+                  </td>
+                  <td class="text-center"><i data-target="#updateModal" data-toggle="modal" (click)="EditForm(rt)"
+                      class="fa fa-pencil p-2" aria-hidden="true"></i>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+
+          <ng-template [ngIf]="racetrackConfig?.total > 10">
+            <div class="container mt-4 mb-4">
+              <pagination [boundaryLinks]="true" [totalItems]="racetrackConfig?.total"
+                [itemsPerPage]="racetrackConfig?.per_page" [maxSize]="maxSize" [(ngModel)]="currentPage"
+                (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+                lastText="&raquo;"></pagination>
+            </div>
+          </ng-template>
+        </div>
+        <div class="modal fade" id="RaceTracksModal" tabindex="-1" role="dialog" aria-labelledby="RaceTracksModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+              <div class="modal-body px-1">
+                <div class="text-center">
+                  <h5><b>Add Racetrack</b></h5>
+                </div>
+                <div class="container register-form mt-4">
+                  <form [formGroup]="form">
+                    <div class="form-content">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Racetrack Name : </label>
+                            <div class="input-group">
+                              <input type="text" class="form-control" formControlName="name"
+                                placeholder="Racetrack Name">
+                              <p *ngIf="formService.validate(form,'name')" class="invalid-feed">Racetrack Name is
+                                Required
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Racetrack Distance (in km) : </label>
+                            <div class="input-group">
+                              <input type="text" class="form-control" formControlName="distance"
+                                placeholder="Racetrack Distance (in km)">
+                              <p *ngIf="formService.validate(form,'distance')" class="invalid-feed">Racetrack Distance
+                                is
+                                Required</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Select Type : </label>
+                            <div class="input-group">
+                              <!-- (change)="setId()" -->
+                              <select name="" class="form-control" formControlName="type_id">
+                                <option hidden value="" disabled selected>--Select Type--</option>
+                                <option [value]="type.id" *ngFor="let type of typesList">
+                                  {{type?.name}}</option>
+                              </select>
+                              <p *ngIf="formService.validate(form,'type_id')" class="invalid-feed">Type is Required</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Select Owner : </label>
+                            <div class="input-group">
+                              <!-- (change)="setId()" -->
+                              <select name="" class="form-control" formControlName="owner_id">
+                                <option hidden value="" disabled selected>--Select Owner--</option>
+                                <option [value]="allUser.id" *ngFor="let allUser of allUsers">
+                                  {{allUser?.first_name}} {{allUser?.last_name}}</option>
+                              </select>
+                              <p *ngIf="formService.validate(form,'owner_id')" class="invalid-feed">Owner is Required
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Owner Contact : </label>
+                            <div class="input-group">
+                              <input type="text" class="form-control" formControlName="owner_contact"
+                                placeholder="Owner Contact">
+                              <p *ngIf="formService.validate(form,'owner_contact')" class="invalid-feed">Owner Contact
+                                is
+                                Required</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Owner Email : </label>
+                            <div class="input-group">
+                              <input type="text" class="form-control" formControlName="owner_email"
+                                placeholder="Owner Email">
+                              <p *ngIf="formService.validate(form,'owner_email')" class="invalid-feed">Owner Email is
+                                Required</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Racetrack Address : </label>
+                            <div class="input-group">
+                              <input type="text" class="form-control" formControlName="address"
+                                placeholder="Racetrack Address">
+                              <p *ngIf="formService.validate(form,'address')" class="invalid-feed">Racetrack Address is
+                                Required</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Responsible Person : </label>
+                            <div class="input-group">
+                              <input type="text" class="form-control" formControlName="responsible_person"
+                                placeholder="Responsible Person">
+                              <p *ngIf="formService.validate(form,'responsible_person')" class="invalid-feed">
+                                Responsible
+                                Person is Required</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Allocation Start Date : </label>
+                            <div class="input-group">
+                              <input type="text" class="form-control" formControlName="allocation_start_date"
+                                (ngModelChange)="onChangeStart($event)" [min]="todayDate" [owlDateTimeTrigger]="dt1"
+                                [owlDateTime]="dt1" placeholder="Allocation Start Date">
+                              <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                              <p *ngIf="formService.validate(form,'allocation_start_date')" class="invalid-feed">
+                                Allocation
+                                Start Date is Required</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Allocation End Date : </label>
+                            <div class="input-group">
+                              <input type="text" class="form-control" formControlName="allocation_end_date"
+                                (ngModelChange)="onChangeEnd($event)" [min]="todayDate" [owlDateTimeTrigger]="dt2"
+                                [owlDateTime]="dt2" placeholder="Allocation End Date">
+                              <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                              <p *ngIf="formService.validate(form,'allocation_end_date')" class="invalid-feed">
+                                Allocation
+                                End Date is Required</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Allocation Time : </label>
+                            <div class="input-group">
+                              <input type="text" class="form-control" formControlName="allocation_time"
+                                placeholder="Allocation Time">
+                              <p *ngIf="formService.validate(form,'allocation_time')" class="invalid-feed">Allocation
+                                Time
+                                is Required</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Racetrack Video Link : </label>
+                            <div class="input-group">
+                              <input type="text" class="form-control" formControlName="video_link"
+                                placeholder="Video Link">
+                              <p *ngIf="formService.validate(form,'video_link')" class="invalid-feed">Racetrack Video
+                                Link
+                                is Required</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Racetrack Rating (In Stars. For Eg. 3/2/1) : </label>
+                            <div class="input-group">
+                              <input type="number" class="form-control" formControlName="rating"
+                                placeholder="Racetrack Rating">
+                              <p *ngIf="formService.validate(form,'rating')" class="invalid-feed">Racetrack Rating is
+                                Required</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Racetrack Shared Status : </label>
+                            <div class="input-group">
+                              <select class="form-control" formControlName="shared" style="padding-left: 0 !important;">
+                                <option hidden value="" disabled selected>--Select Shared Status--</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                              </select>
+                              <p *ngIf="formService.validate(form,'shared')" class="invalid-feed">Racetrack Shared
+                                Status is
+                                Required</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <!-- <label>Racetrack Images (Supported upto 10 Images) : </label>
+                                        <div class="input-group">
+                                          <input type="file" name="images[]" multiple>
+                                        </div> -->
+                            <!-- <div class="image_single">
+                                        <div *ngFor='let url of images; let i = index' class="img-warpp">
+                                            <img [src]="url" height="70" width="80px">
+                                            <div class="cross" (click)="removeImage(i)"><small>X</small></div>
+                                        </div>
+                                      </div> -->
+
+                            <label for="file">Racetrack Images (Supported upto 10 Images)</label>
+                            <input formControlName="images" id="file" type="file" class="form-control" multiple=""
+                              (change)="onFileChange($event)">
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Racetrack Equipments :</label>
+                            <div class="input-group">
+                              <ng-multiselect-dropdown class="form-control" [placeholder]="'--Select Equipment--'"
+                                [data]="equipmentList" formControlName="equipments"
+                                [settings]="equipmentdropdownSettings" (onSelect)="onEquipmentItemSelect($event)"
+                                (onDeSelect)="onEquipmentDeSelect($event)">
+                                <option *ngFor="let equipmentData of equipmentList" [value]="equipmentData.id">
+                                  {{equipmentData.name}}
+                                </option>
+                              </ng-multiselect-dropdown>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Racetrack Servicemans (Mechanic) : </label>
+                            <div class="input-group">
+                              <ng-multiselect-dropdown class="form-control" [placeholder]="'Select Serviceman'"
+                                [data]="servicemanList" formControlName="servicemans"
+                                [settings]="servicemandropdownSettings" (onSelect)="onServicemanItemSelect($event)"
+                                (onDeSelect)="onServicemanDeSelect($event)">
+                                <option *ngFor="let servicemanData of servicemanList" [value]="servicemanData.id">
+                                  {{servicemanData.name}}
+                                </option>
+                              </ng-multiselect-dropdown>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label>Racetrack Description : </label>
+                            <div class="input-group">
+                              <textarea type="text" class="form-control" formControlName="desc"
+                                placeholder="Racetrack Description" required></textarea>
+                              <p *ngIf="formService.validate(form,'shared')" class="invalid-feed">Racetrack Description
+                                is
+                                Required</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- [disabled]="form.invalid"  -->
+                      <div class="text-right mt-4">
+                        <button type="submit" class="btn btn-secondary closebtn" data-dismiss="modal"
+                          (click)="addracetrackForm()">Save</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

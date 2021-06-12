@@ -1,0 +1,190 @@
+<div class="header">
+  <app-header></app-header>
+  <div class="row">
+    <div class="col">
+      <aside>
+        <div class="sidebar_wrap">
+          <app-sidebar></app-sidebar>
+        </div>
+      </aside>
+    </div>
+    <div class="col-9">
+      <div class="container-fluid  main-content content_wrapper">
+        <div class="overlay"></div>
+        <div class="top_head clearfix">
+          <div class="main-title float-left">
+            Users
+          </div>
+          <div class="float-right">
+            <button class="btn btn-secondary " data-target="#UserModal" data-toggle="modal" type="button"
+              (click)="addUser()">Add New
+              User</button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th class="text-center">Status</th>
+              <th class="text-center">Action</th>
+            </thead>
+            <tbody>
+              <ng-container>
+                <tr *ngFor="let user of config.data">
+                  <td data-target="#UserModal" data-toggle="modal" (click)="setForm(user)">{{user.first_name}} {{ user.last_name }}</td>
+                  <td>{{ user.email_id }}</td>
+                  <td>{{ user.user_role }}</td>
+                  <td class="text-center"><span class="active st_btn" *ngIf="user?.status == 'Active'"
+                      (click)="changeStatus('Inactive',user.id)">Active</span>
+                    <span class="inactive st_btn" *ngIf="user?.status == 'Inactive'"
+                      (click)="changeStatus('Active',user.id)">Inactive</span>
+                  </td>
+                  <td class="text-center">
+                    <i data-target="#UserModal" data-toggle="modal" (click)="setForm(user)"
+                      class="fa fa-pencil p-2" aria-hidden="true"></i>
+                      <i title="Delete" class="fa fa-trash text-danger" data-target="#UserDeleteModal" data-toggle="modal" (click)="deleteAction(user.id)"></i>
+                    </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+          <ng-template [ngIf]="paginationConfig?.total > 10">
+            <div class="container mt-4 mb-4">
+              <pagination [boundaryLinks]="true" [totalItems]="paginationConfig?.total"
+                [itemsPerPage]="paginationConfig?.per_page" [maxSize]="paginationConfig.maxPages"
+                [(ngModel)]="paginationConfig.currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;"
+                nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- Model For User Add / Edit Action -->
+<div class="modal fade" id="UserModal" tabindex="-1" role="dialog" aria-labelledby="UserModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+      <div class="modal-body">
+        <div class="text-center">
+          <h5><b>{{ config.action == 'edit' ? 'Edit' : 'Add' }} User</b></h5>
+        </div>
+        <div class="container  mt-4 register-form">
+          <form [formGroup]="form" novalidate autocomplete="off">
+            <div class="form-content">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>First Name : <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <input type="text" formControlName="first_name" placeholder="First Name" class="form-control">
+                        <div *ngIf="(form.controls['first_name'].touched && form.controls['first_name'].errors) || config.isSubmit">
+                          <div class="invalid-feed" *ngIf="form.controls['first_name'].errors?.required">First name is Required. </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Last Name : <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <input type="text" formControlName="last_name" placeholder="Last Name" class="form-control">
+                        <div *ngIf="(form.controls['last_name'].touched && form.controls['last_name'].errors) || config.isSubmit">
+                          <div class="invalid-feed" *ngIf="form.controls['last_name'].errors?.required">Last name is Required. </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Email : <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <input type="text" formControlName="email_id" placeholder="E-Mail Address" class="form-control">
+                        <div *ngIf="(form.controls['email_id'].touched && form.controls['email_id'].errors) || config.isSubmit">
+                          <div class="invalid-feed" *ngIf="form.controls['email_id'].errors?.required">Email is Required. </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6" *ngIf="config.action === 'add'">
+                  <div class="form-group">
+                    <label>Password : <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <input type="password" formControlName="password" placeholder="Enter New Password" class="form-control" >
+                        <div *ngIf="(form.controls['password'].touched && form.controls['password'].errors) || config.isSubmit">
+                          <div class="invalid-feed" *ngIf="form.controls['password'].errors?.required">Password is Required. </div>
+                          <div class="invalid-feed" *ngIf="form.controls['password'].errors?.minlength || form.controls['password'].errors?.maxlength">Password should contain minimum 8 and maximum 25 characters. </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6" *ngIf="config.action === 'add'">
+                  <div class="form-group">
+                    <label>Confirm Password : <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <input type="password" formControlName="password_confirmation" placeholder="Enter Confirm Password" class="form-control">
+                        <div *ngIf="(form.controls['password_confirmation'].touched && form.controls['password_confirmation'].errors) || config.isSubmit">
+                          <div class="invalid-feed" *ngIf="form.controls['password_confirmation'].errors?.required">Confirm Password is Required. </div>
+                          <div class="invalid-feed" *ngIf="form.controls['password_confirmation'].errors?.cn_password">Confirm Password didn't match to Password. </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Role : <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <select formControlName="user_role" class="form-control">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                      </select>
+                        <div *ngIf="(form.controls['user_role'].touched && form.controls['user_role'].errors) || config.isSubmit">
+                          <div class="invalid-feed" *ngIf="form.controls['user_role'].errors?.required">Email is Required. </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-right mt-4">
+                <button type="button" class="btn btn-danger mr-3" data-dismiss="modal" aria-label="Close">Cancel</button>
+                <button type="submit" class="btn btn-secondary closebtn" (click)="createUser()">Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Model for Delete Action Confirm -->
+<div class="modal fade" id="UserDeleteModal" tabindex="-1" role="dialog" aria-labelledby="UserDeleteModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+  
+  <div class="modal-content">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="modal-body px-1">
+      <div class="text-center">
+        <h5><b>Are you sure to delete User?</b></h5>
+        <hr>
+        <button type="button" class="btn btn-info mr-3" data-dismiss="modal" aria-label="Close">Cancel</button>
+         <button type="button" class="btn btn-success" (click)="deleteSubmit()">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

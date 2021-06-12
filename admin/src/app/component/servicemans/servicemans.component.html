@@ -1,0 +1,242 @@
+<div class="header">
+  <app-header></app-header>
+  <div class="row">
+    <div class="col">
+      <aside>
+        <div class="sidebar_wrap">
+          <app-sidebar></app-sidebar>
+        </div>
+      </aside>
+    </div>
+    <div class="col-9">
+      <div class="container-fluid  main-content content_wrapper">
+        <div class="overlay"></div>
+        <div class="top_head clearfix">
+          <div class="main-title float-left">
+            Servicemans
+          </div>
+          <div class="float-right">
+            <button class="btn btn-secondary " data-target="#ServicemanModal" data-toggle="modal" type="button" (click)="addAction()">Add New
+              Serviceman</button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Contact No.</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Ratings</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container>
+                <tr *ngFor="let servicemanLists of servicemanConfig?.data">
+                  <td>{{servicemanLists?.name}}</td>
+                  <td>{{servicemanLists?.contact_no}}</td>
+                  <td>{{servicemanLists?.email_id}}</td>
+                  <td>{{servicemanLists?.address}}</td>
+                  <td>{{servicemanLists?.rating}}</td>
+                  <td class="text-center"><span class="active st_btn" *ngIf="servicemanLists?.status == 'Active'"
+                      (click)="changeStatus('Inactive',servicemanLists.id)">Active</span>
+                    <span class="inactive st_btn" *ngIf="servicemanLists?.status == 'Inactive'"
+                      (click)="changeStatus('Active',servicemanLists.id)">Inactive</span>
+                  </td>
+                  <td class="text-center">
+                    <i data-target="#ServicemanModal" data-toggle="modal" (click)="setForm(servicemanLists)" class="fa fa-pencil p-2" aria-hidden="true"></i>
+                    <i title="Delete" class="fa fa-trash text-danger" data-target="#ServicemanDeleteModal" data-toggle="modal"
+                      (click)="deleteAction(servicemanLists.id)"></i>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+          <ng-template [ngIf]="servicemanConfig?.total > 10">
+            <div class="container mt-4 mb-4">
+              <pagination [boundaryLinks]="true" [totalItems]="servicemanConfig?.total"
+                [itemsPerPage]="servicemanConfig?.per_page" [maxSize]="maxSize" [(ngModel)]="currentPage"
+                (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+                lastText="&raquo;"></pagination>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="ServicemanModal" tabindex="-1" role="dialog" aria-labelledby="TServicemanModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+      <div class="modal-body">
+        <div class="text-center">
+          <h5><b> {{ config.action == 'add' ? 'Add' : 'Edit' }} Serviceman</b></h5>
+        </div>
+        <div class="container  mt-4 register-form">
+          <form [formGroup]="servicemanForm">
+            <div class="form-content">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Name : <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <input type="text" formControlName="name" placeholder="Type Name" class="form-control" required>
+                      <div *ngIf="formService.validate(servicemanForm,'name')" class="invalid-feed">Type is Required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Contact No. : <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <input type="text" formControlName="contact_no" placeholder="Type Contact No"
+                        class="form-control">
+                      <div *ngIf="formService.validate(servicemanForm,'contact_no')" class="invalid-feed">Contact Number
+                        is
+                        Required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Email : <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <input type="text" formControlName="email_id" placeholder="Email" class="form-control">
+                      <div *ngIf="formService.validate(servicemanForm,'email_id')" class="invalid-feed">Email is
+                        Required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Address : <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <input type="text" formControlName="address" placeholder="Address" class="form-control">
+                      <div *ngIf="formService.validate(servicemanForm,'address')" class="invalid-feed">Address is
+                        Required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Available Hours : <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <input type="number" formControlName="available_hours" placeholder="Available Hours"
+                        class="form-control">
+                      <div *ngIf="formService.validate(servicemanForm,'available_hours')" class="invalid-feed">Available
+                        Hours is
+                        Required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Serviceman Rating (In Stars. For Eg. 3/2/1)</label>
+                    <div class="input-group">
+
+                      <input type="number" class="form-control" formControlName="rating" />
+                      <!-- <rating [max]="'5'" (onHover)="hoveringOver($event)"></rating> -->
+
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Specializations</label>
+                    <div class="input-group">
+                      <tag-input  formControlName="specializations" [(ngModel)]="config.editData.servicemans" (onSelect)="onSelect($event)" [modelAsStrings]="true" placeholder="Write Specializations"></tag-input>
+                      <!-- <input type="text" formControlName="specializations" placeholder="Specializations"
+                        class="form-control"> -->
+                      <div *ngIf="formService.validate(servicemanForm,'specializations')" class="invalid-feed">
+                        Specializations is
+                        Required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Enter Latitude <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" formControlName="ser_lat" />
+                      <p *ngIf="formService.validate(servicemanForm,'ser_lat')" class="invalid-feed">Latitude
+                        is
+                        Required</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Enter Longitude <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" formControlName="ser_long" />
+                      <p *ngIf="formService.validate(servicemanForm,'ser_long')" class="invalid-feed">Longitude
+                        is
+                        Required</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Select Availability : </label>
+                    <div class="input-group">
+                      <ng-multiselect-dropdown class="form-control" [placeholder]="'Select Availability'"
+                        [data]="days" formControlName="available_day"
+                        [settings]="servicemandropdownSettings" [(ngModel)]="config.editData.available_day" (onSelect)="onServicemanItemSelect($event)"
+                        (onDeSelect)="onServicemanDeSelect($event)">
+                        <option *ngFor="let servicemanData of days" [value]="servicemanData">
+                          {{servicemanData}}
+                        </option>
+                      </ng-multiselect-dropdown>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-right mt-4">
+                <button type="submit" class="btn btn-secondary closebtn" (click)="addServiceman()">Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="ServicemanDeleteModal" tabindex="-1" role="dialog" aria-labelledby="RaceTracksDeleteModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="modal-body px-1">
+        <div class="text-center">
+          <h5><b>Are you sure to delete Serviceman?</b></h5>
+          <hr>
+          <button type="button" class="btn btn-info mr-3" data-dismiss="modal" aria-label="Close">Cancel</button>
+          <button type="button" class="btn btn-success" (click)="deleteSubmit()">Continue</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

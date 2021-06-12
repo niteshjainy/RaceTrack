@@ -1,0 +1,156 @@
+<div class="header">
+  <app-header></app-header>
+  <div class="row">
+    <div class="col">
+      <aside>
+        <div class="sidebar_wrap">
+          <app-sidebar></app-sidebar>
+        </div>
+      </aside>
+    </div>
+    <div class="col-9">
+      <div class="container-fluid  main-content content_wrapper">
+        <div class="overlay"></div>
+        <div class="top_head clearfix">
+          <div class="main-title float-left">
+            LIST OF CATEGORIES
+          </div>
+          <div class="float-right">
+            <button class="btn btn-secondary " data-target="#CategoryModal" data-toggle="modal" type="button">Add New
+              Category</button>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <th>Name</th>
+              <th>Description</th>
+              <th class="text-center">Status</th>
+              <th class="text-center">Action</th>
+            </thead>
+            <tbody>
+              <ng-container>
+                <tr *ngFor="let category of categoryConfig?.data">
+                  <td>{{category?.name}}</td>
+                  <td>{{category?.desc}}</td>
+                  <td class="text-center">
+                    <span class="active st_btn" *ngIf="category?.status == 'Active'"
+                      (click)="changeStatus('Inactive',category.id)">Active</span>
+                    <span class="inactive st_btn" *ngIf="category?.status == 'Inactive'"
+                      (click)="changeStatus('Active',category.id)">Inactive</span>
+                  </td>
+                  <td class="text-center"><i data-target="#updateModal" data-toggle="modal" (click)="EditForm(category)"
+                      class="fa fa-pencil p-2" aria-hidden="true"></i></td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+          <ng-template [ngIf]="categoryConfig?.total > 10">
+            <div class="container mt-4 mb-4">
+              <pagination [boundaryLinks]="true" [totalItems]="categoryConfig?.total"
+                [itemsPerPage]="categoryConfig?.per_page" [maxSize]="maxSize" [(ngModel)]="currentPage"
+                (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+                lastText="&raquo;"></pagination>
+            </div>
+          </ng-template>
+        </div>
+        <!-- Add Category Modal -->
+        <div class="modal fade" id="CategoryModal" tabindex="-1" role="dialog" aria-labelledby="CategoryModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <div class="modal-body">
+                <div class="text-center">
+                  <h5><b>Add Category</b></h5>
+                </div>
+                <div class="container mt-4 register-form">
+                  <form [formGroup]="form">
+                    <div class="form-content">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label>Category Name</label>
+                            <div class="input-group">
+                              <input type="text" formControlName="name" placeholder="Category Name" class="form-control"
+                                required>
+                              <div *ngIf="formService.validate(form,'name')" class="invalid-feed">Category Name is
+                                Required
+                                Field</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label>Description</label>
+                            <div class="input-group">
+                              <input type="text" formControlName="desc" placeholder="Category Description"
+                                class="form-control" required>
+                              <div *ngIf="formService.validate(form,'desc')" class="invalid-feed">Description is
+                                Required
+                                Field</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-right mt-4">
+                        <button type="submit" [disabled]="form.invalid" class="btn btn-secondary closebtn"
+                          data-dismiss="modal" (click)="addCategory()">Save</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Update Category Modal -->
+        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
+          aria-hidden="true" *ngIf="showClick == true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <div class="modal-body">
+                <div class="text-center">
+                  <h5><b>Update Category</b></h5>
+                </div>
+                <div class="container mt-4 register-form">
+                  <div class="form-content">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Categories Name</label>
+                          <div class="input-group">
+                            <input type="text" [(ngModel)]="catrgoryData.name" [ngModelOptions]="{standalone: true}"
+                              rolName="name" placeholder="Category Name" class="form-control" required>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Description</label>
+                          <div class="input-group">
+                            <input type="text" [(ngModel)]="catrgoryData.desc" [ngModelOptions]="{standalone: true}"
+                              placeholder="Description" class="form-control" required>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-right mt-4">
+                      <button type="submit" class="btn btn-secondary closebtn" data-dismiss="modal"
+                        (click)="updateCategory()">Update</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

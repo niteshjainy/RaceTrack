@@ -1,0 +1,74 @@
+/*---------------------Footer---------------------*/
+
+footer{
+    background: #000;
+    padding: 0px 0 0;
+    text-align: center;
+}
+
+.footer-icon{
+    position: relative;
+    padding: 30px 0;
+}
+.footer-icon ul{
+    padding: 0;
+}
+.footer-icon ul li{
+    display: inline-block;
+    width: 60px;
+}
+.footer-icon ul li a .fa{
+    color: #fff;
+    font-size: 20px;
+    transition: all 0.3s;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    line-height: 40px;
+}
+.footer-icon ul li a .fa-facebook{
+    background: #3b60c7;
+}
+.footer-icon ul li a .fa-instagram{
+    background: #fa1965;
+}
+.footer-icon ul li a .fa-youtube-play{
+    background: #ff010d;
+}
+.footer-icon ul li a:hover{
+    color: #a78c24;
+    text-shadow: 0 1px 1px  #fff;
+}
+
+.footer-menu ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.footer-menu ul li{
+    display: inline-block;
+    padding: 5px 20px;
+}
+.footer-menu ul li a{
+    font-size: 18px;
+    color: #fff;
+    text-transform: capitalize;
+    transition: all 0.3s;
+    padding: 10px 0;
+    letter-spacing: 0px;
+    font-family: "Poppins";
+}
+.footer-menu ul li a:hover{
+    transition: all 0.3s;
+    color: #ff010a;
+}
+footer hr{
+    height: 1px;
+background: rgb(0,0,0);
+background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(255,0,120,1) 25%, rgba(255,1,1,1) 75%, rgba(0,0,0,1) 100%);
+border: none;
+}
+.copy-right{
+    color: #fff;
+    margin: 0 0 20px;
+}

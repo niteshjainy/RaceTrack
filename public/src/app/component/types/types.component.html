@@ -1,0 +1,176 @@
+<div class="header">
+  <app-header></app-header>
+  <div class="row">
+    <div class="col">
+      <aside>
+        <div class="sidebar_wrap">
+          <app-sidebar></app-sidebar>
+        </div>
+      </aside>
+    </div>
+    <div class="col-9">
+      <div class="container-fluid  main-content content_wrapper">
+        <div class="overlay"></div>
+        <div class="top_head clearfix">
+          <div class="main-title float-left">
+            LIST OF TYPES
+          </div>
+          <div class="float-right">
+            <button class="btn btn-secondary " data-target="#TypeModal" data-toggle="modal" type="button">Add New
+              Type</button>
+          </div>
+        </div>
+
+        <!-- <div class="row">
+                          <div class="col-lg-4 col-md-6 mb-4" *ngFor="let racetrackLType of racetrackLTypes">
+                            <div class="dt-card p-5">
+                              <div class="dropdown" style="position: absolute;right: 15px;top: 15px;">
+                                <span class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                  aria-expanded="false"><i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                </span>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                  <a class="dropdown-item" href="javascript:;" *ngIf="racetrackLType?.status == 'Active'" (click)="changeStatus('Inactive',racetrackLType.id)">Inactive</a>
+                                  <a class="dropdown-item" href="javascript:;" *ngIf="racetrackLType?.status == 'Inactive'" (click)="changeStatus('Active',racetrackLType.id)">Active</a>
+                                </div>
+                              </div>
+                              <div class="dt-card__body text-center">
+                                <h3 class="mb-4"> {{racetrackLType?.name}}</h3>
+                                <p>{{racetrackLType?.desc}} </p>
+                                <span class="inactive st_btn" *ngIf="racetrackLType?.status == 'Inactive'">Inactive</span>
+                                <span class="active st_btn" *ngIf="racetrackLType?.status == 'Active'">Active</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div> -->
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <th>Name</th>
+              <th>Description</th>
+              <th class="text-center">Status</th>
+              <th class="text-center">Action</th>
+            </thead>
+            <tbody>
+              <ng-container>
+                <tr *ngFor="let racetrackLType of raceTrackConfig?.data">
+                  <td>{{racetrackLType?.name}}</td>
+                  <td>{{racetrackLType?.desc}}</td>
+                  <td class="text-center"><span class="active st_btn" *ngIf="racetrackLType?.status == 'Active'"
+                      (click)="changeStatus('Inactive',racetrackLType.id)">Active</span>
+                    <span class="inactive st_btn" *ngIf="racetrackLType?.status == 'Inactive'"
+                      (click)="changeStatus('Active',racetrackLType.id)">Inactive</span> </td>
+                  <td class="text-center"><i data-target="#updateModal" data-toggle="modal"
+                      (click)="EditForm(racetrackLType)" class="fa fa-pencil p-2" aria-hidden="true"></i></td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+          <ng-template [ngIf]="raceTrackConfig?.total > 10">
+            <div class="container mt-4 mb-4">
+              <pagination [boundaryLinks]="true" [totalItems]="raceTrackConfig?.total"
+                [itemsPerPage]="raceTrackConfig?.per_page" [maxSize]="maxSize" [(ngModel)]="currentPage"
+                (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+                lastText="&raquo;"></pagination>
+            </div>
+          </ng-template>
+        </div>
+
+        <div class="modal fade" id="TypeModal" tabindex="-1" role="dialog" aria-labelledby="TypeModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+
+              <div class="modal-body">
+                <div class="text-center">
+                  <h5><b>Add Type</b></h5>
+                </div>
+                <div class="container  mt-4 register-form">
+                  <form [formGroup]="form">
+                    <div class="form-content">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label>Type </label>
+                            <div class="input-group">
+                              <input type="text" formControlName="name" placeholder="Type Name" class="form-control"
+                                required>
+                              <div *ngIf="formService.validate(form,'name')" class="invalid-feed">Type is Required</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label>Description</label>
+                            <div class="input-group">
+                              <input type="text" formControlName="desc" placeholder="Type Description"
+                                class="form-control" required>
+                              <div *ngIf="formService.validate(form,'desc')" class="invalid-feed">Description is
+                                Required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-right mt-4">
+                        <button type="submit" [disabled]="form.invalid" class="btn btn-secondary closebtn"
+                          (click)="addTypeForm()">Save</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
+          aria-hidden="true" *ngIf="showClick == true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <div class="modal-body">
+                <div class="text-center">
+                  <h5><b>Update Type</b></h5>
+                </div>
+                <div class="container mt-4 register-form">
+                  <div class="form-content">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Type</label>
+                          <div class="input-group">
+                            <input type="text" [(ngModel)]="typesdata.name" [ngModelOptions]="{standalone: true}"
+                              rolName="name" placeholder="Type Name" class="form-control" required>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Description</label>
+                          <div class="input-group">
+                            <input type="text" [(ngModel)]="typesdata.desc" [ngModelOptions]="{standalone: true}"
+                              placeholder="Description" class="form-control" required>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-right mt-4">
+                      <button type="submit" class="btn btn-secondary closebtn" data-dismiss="modal"
+                        (click)="updateForm()">Update</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

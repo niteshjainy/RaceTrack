@@ -1,0 +1,208 @@
+<div class="header">
+  <app-header></app-header>
+  <div class="row">
+    <div class="col">
+      <aside>
+        <div class="sidebar_wrap">
+          <app-sidebar></app-sidebar>
+        </div>
+      </aside>
+    </div>
+    <div class="col-9">
+      <div class="container-fluid  main-content content_wrapper">
+        <div class="overlay"></div>
+        <div class="top_head clearfix">
+          <div class="main-title float-left">
+            LIST OF SUBCATEGORIES
+          </div>
+          <div class="float-right">
+            <button class="btn btn-secondary " data-target="#CategoryModal" data-toggle="modal" type="button">Add New
+              Subcategory</button>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Category Name</th>
+              <th class="text-center">Status</th>
+              <th class="text-center">Action</th>
+            </thead>
+            <tbody>
+              <ng-container>
+                <tr *ngFor="let subcategory of subcategoryConfig?.data">
+                  <td>{{subcategory?.name}}</td>
+                  <td>{{subcategory?.desc}}</td>
+                  <td>{{subcategory?.categories?.name}}</td>
+                  <td class="text-center">
+                    <span class="active st_btn" *ngIf="subcategory?.status == 'Active'"
+                      (click)="changeStatus('Inactive',subcategory.id)">Active</span>
+                    <span class="inactive st_btn" *ngIf="subcategory?.status != 'Active'"
+                      (click)="changeStatus('Active',subcategory.id)">Inactive</span>
+                  </td>
+                  <td class="text-center"><i data-target="#updateCategoryModal" data-toggle="modal"
+                      (click)="EditForm(subcategory)" class="fa fa-pencil p-2" aria-hidden="true"></i>
+                      <i title="Delete" class="fa fa-trash text-danger" data-target="#SubCategoryDeleteModal" data-toggle="modal"
+                      (click)="deleteAction(subcategory.id)"></i></td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+          <ng-template [ngIf]="subcategoryConfig?.total > 10">
+            <div class="container mt-4 mb-4">
+              <pagination [boundaryLinks]="true" [totalItems]="subcategoryConfig?.total"
+                [itemsPerPage]="subcategoryConfig?.per_page" [maxSize]="maxSize" [(ngModel)]="currentPage"
+                (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+                lastText="&raquo;"></pagination>
+            </div>
+          </ng-template>
+        </div>
+
+
+        <div class="modal fade" id="CategoryModal" tabindex="-1" role="dialog" aria-labelledby="CategoryModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <div class="modal-body">
+                <div class="text-center">
+                  <h5><b>Add Subcategory</b></h5>
+                </div>
+                <div class="container mt-4 register-form">
+                  <form [formGroup]="form">
+                    <div class="form-content">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label>Category Name</label>
+                            <div class="input-group">
+                              <!--  (change)="setId()" -->
+                              <select name="" class="form-control" formControlName="category_id">
+                                <option hidden value="" disabled selected>Select Category</option>
+                                <option [value]="category.id" *ngFor="let category of generalcategories">
+                                  {{category?.name}}</option>
+                              </select>
+                              <div *ngIf="formService.validate(form,'category_id')" class="invalid-feed">Category Name
+                                is
+                                Required</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label>Subcategory Name</label>
+                            <div class="input-group">
+                              <input type="text" formControlName="name" placeholder="Category Name" class="form-control"
+                                required>
+                              <div *ngIf="formService.validate(form,'name')" class="invalid-feed">Subcategory Name is
+                                Required</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label>Subcategory Desc</label>
+                            <div class="input-group">
+                              <input type="text" formControlName="desc" placeholder="Description" class="form-control"
+                                required>
+                              <div *ngIf="formService.validate(form,'desc')" class="invalid-feed">Subcategory Desc is
+                                Required</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-right mt-4">
+                        <button type="submit" [disabled]="!form.valid" class="btn btn-secondary closebtn"
+                          data-dismiss="modal" (click)="addsubCatForm()">Save</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- update SubCategory -->
+
+        <div class="modal fade" id="updateCategoryModal" tabindex="-1" role="dialog"
+          aria-labelledby="updateCategoryModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <div class="modal-body">
+                <div class="text-center">
+                  <h5><b>Update Subcategory</b></h5>
+                </div>
+                <div class="container mt-4 register-form">
+                  <div class="form-content">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Subcategories Name</label>
+                          <div class="input-group">
+                            <input type="text" [(ngModel)]="subCatrgoryData.name" [ngModelOptions]="{standalone: true}"
+                              rolName="name" placeholder="Subcategory Name" class="form-control" required>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Description</label>
+                          <div class="input-group">
+                            <input type="text" [(ngModel)]="subCatrgoryData.desc" [ngModelOptions]="{standalone: true}"
+                              placeholder="Description" class="form-control" required>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Category</label>
+                          <div class="input-group">
+                            <input type="text" [(ngModel)]="subCatrgoryData.category_name"
+                              [ngModelOptions]="{standalone: true}" placeholder="Category" class="form-control" required
+                              readonly>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-right mt-4">
+                      <button type="submit" class="btn btn-secondary closebtn" data-dismiss="modal"
+                        (click)="updateSubCatForm()">Update</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="SubCategoryDeleteModal" tabindex="-1" role="dialog" aria-labelledby="RaceTracksDeleteModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="modal-body px-1">
+        <div class="text-center">
+          <h5><b>Are you sure to delete SubCategory?</b></h5>
+          <hr>
+          <button type="button" class="btn btn-info mr-3" data-dismiss="modal" aria-label="Close">Cancel</button>
+          <button type="button" class="btn btn-success" (click)="deleteSubmit()">Continue</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

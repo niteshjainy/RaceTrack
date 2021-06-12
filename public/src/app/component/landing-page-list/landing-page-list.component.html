@@ -1,0 +1,236 @@
+<app-public-header></app-public-header>
+
+<div class="search-sec">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content">
+          <!-- <button id="btn" (click)="isHideFilter = !isHideFilter">
+            <i class="fa fa-caret-down" aria-hidden="true" *ngIf="isHideFilter"></i>
+            <i class="fa fa-caret-up" aria-hidden="true" *ngIf="!isHideFilter"></i>
+          </button> -->
+          <button id="btn" (click)="resetForm()">
+            <i class="fa fa-refresh" aria-hidden="true"></i>
+          </button>
+          <div id="myDIV" [ngClass]="{'myDIV': isHideFilter}">
+            <form class="row" [formGroup]="raceTrackForm" (submit)="submitRaceTrack()" novalidate autocomplete="off"
+              *ngIf="isFormShow">
+              <div class="col-md-11">
+                <div class="inputs-row row">
+                  <div class="form-group col">
+                    <input type="text" class="form-control" name="location" placeholder="Looking For"
+                      formControlName="locationFor" />
+                  </div>
+                  <div class="form-group col">
+                    <ng-autocomplete class="form-control" [data]="autoCompleteData.state.data"
+                      [initialValue]="autoCompleteData.state.initialValue"
+                      [searchKeyword]="autoCompleteData.state.keyword" (selected)='selectEvent($event, "state")'
+                      [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                      (inputChanged)='onChangeSearch($event, "state")' (inputCleared)='onChangeSearch($event, "state")'
+                      [placeHolder]="autoCompleteData.state.placeHolder" formControlName="state">
+                    </ng-autocomplete>
+                    <ng-template #itemTemplate let-item>
+                      <a [innerHTML]="item.state"></a>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound class="notFound">
+                      <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                  </div>
+                  <div class="form-group col">
+                    <input type="hidden" formControlName="searchLoc" />
+                    <ng-autocomplete class="form-control" [data]="autoCompleteData.city.data"
+                      [initialValue]="autoCompleteData.city.initialValue"
+                      [searchKeyword]="autoCompleteData.city.keyword" (selected)='selectEvent($event, "city")'
+                      [itemTemplate]="cityTemplate" [notFoundTemplate]="cityNotFoundTemplate"
+                      (inputChanged)='onChangeSearch($event, "city")' (inputCleared)='onChangeSearch($event, "city")'
+                      [placeHolder]="autoCompleteData.city.placeHolder" formControlName="city">
+                    </ng-autocomplete>
+                    <ng-template #cityTemplate let-item>
+                      <a [innerHTML]="item.city"></a>
+                    </ng-template>
+
+                    <ng-template #cityNotFoundTemplate let-notFound class="notFound">
+                      <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                  </div>
+
+                  <div class="form-group col">
+                    <span class="input-group">
+                      <input type="text" class="form-control" name="sample-date" placeholder="Form"
+                        formControlName="availabilityFrom" bsDatepicker #datepickerFrom="bsDatepicker"
+                        [bsConfig]="datePickerConfig" [minDate]="formMinDate" (bsValueChange)="setToMinDate($event)"/>
+                      <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                  <div class="form-group col">
+                    <span class="input-group">
+                      <input type="text" class="form-control" name="sample-date" placeholder="To"
+                        formControlName="availabilityTo" bsDatepicker #datepickerTo="bsDatepicker"
+                        [bsConfig]="datePickerConfig" [minDate]="toMinDate" />
+                      <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-1">
+                <button type="submit" class="btn btn-default"><i class="fa fa-search" aria-hidden="true"></i></button>
+              </div>
+            </form>
+          </div>
+          <div class="row search_data" *ngIf="isHideFilter">
+            <div class="col">
+              <h4>Looking For</h4>
+              {{ routeData.locationFor || 'N/A' }}
+            </div>
+            <div class="col">
+              <h4>Location</h4>
+              {{ routeData.searchLoc || 'N/A' }}
+            </div>
+            <div class="col">
+              <h4>Category</h4>
+              {{ routeData.raceTrack || 'N/A' }}
+            </div>
+            <div class="col">
+              <h4>To</h4>
+              {{ routeData.availabilityFrom || 'N/A' }} - {{ routeData.availabilityTo || 'N/A' }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="listing-sec">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="sidebar">
+          <div class="content-box">
+            <h4>Avg Racer Review</h4>
+            <rating [ngModel]="'5'" [max]="5" [readonly]="true" (click)="changeRating('5')"></rating><br>
+            <rating [ngModel]="'4'" [max]="5" [readonly]="true" (click)="changeRating('4')"></rating><br>
+            <rating [ngModel]="'3'" [max]="5" [readonly]="true" (click)="changeRating('3')"></rating>
+          </div>
+          <div class="content-box">
+            <h4>With in</h4>
+            <div class="range-slider">
+              <input class="range-slider__range" type="range" value="100" min="0" max="500">
+              <span class="range-slider__value">250 KM</span>
+            </div>
+          </div>
+          <div class="content-box">
+            <h4>Looking for</h4>
+            <div class="custom-control custom-radio">
+              <input type="radio" id="customRadio1" value="All" name="customRadio" [ngModel]="filterConfig.lookingFor"
+                class="custom-control-input" (change)="changeRacetrack('All')">
+              <label class="custom-control-label" for="customRadio1">All</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" id="customRadio2" value="Racetrack" name="customRadio"
+                [ngModel]="filterConfig.lookingFor" class="custom-control-input"
+                (change)="changeRacetrack('Racetrack')">
+              <label class="custom-control-label" for="customRadio2">Race Track</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" id="customRadio3" value="Equipment" name="customRadio"
+                [ngModel]="filterConfig.lookingFor" class="custom-control-input"
+                (change)="changeRacetrack('Equipment')">
+              <label class="custom-control-label" for="customRadio3">Equipments</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" id="customRadio4" value="Serviceman" name="customRadio"
+                [ngModel]="filterConfig.lookingFor" class="custom-control-input"
+                (change)="changeRacetrack('Serviceman')">
+              <label class="custom-control-label" for="customRadio4">Mechanic</label>
+            </div>
+
+
+            <!-- <ul>
+              <li>
+                <input type="checkbox" name="raceTrack" [(ngModel)]="filterConfig.lookingFor.raceTrack" />
+                <label for="mint-date-1944">Race Track</label>
+              </li>
+              <li>
+                <input type="checkbox" name="equipment" [(ngModel)]="filterConfig.lookingFor.equipment" />
+                <label for="mint-date-1944">Equipments</label>
+              </li>
+              <li>
+                <input type="checkbox" name="serviceman" [(ngModel)]="filterConfig.lookingFor.serviceman" />
+                <label for="mint-date-1944">Mechanic</label>
+              </li>
+            </ul> -->
+
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-9">
+        <div class="list-wrap">
+          <ng-template [ngIf]="raceTrackObj && raceTrackObj.data && raceTrackObj.data.length" [ngIfElse]="noData">
+            <div class="list-row " *ngFor="let raceTrack of raceTrackObj?.data">
+              <a (click)="goToRoute(raceTrack)">
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="img-box">
+                      <ng-template [ngIf]="raceTrack.imageUrl" [ngIfElse]="noImage">
+                        <img [src]="raceTrack.imageUrl">
+                      </ng-template>
+                      <ng-template #noImage>
+                        <img src="../../../assets/img/publicPage/no-image.jpg" alt="No Image" />
+                      </ng-template>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-8">
+                    <div class="text">
+                      <h3><a (click)="goToRoute(raceTrack)">{{ raceTrack.name }}</a></h3>
+                      <rating [(ngModel)]="raceTrack.rating" [max]="5" [readonly]="true"></rating>
+                      <p *ngIf="!raceTrack.specializations">{{ raceTrack.desc }}</p>
+                      <ul *ngIf="raceTrack.specializations" class="spec">
+                        <li *ngFor="let spec of raceTrack.specializations">{{ spec }}</li>
+                      </ul>
+                      <div class="icons">
+                        <ul>
+                          <li *ngIf="raceTrack.racetrack_servicemans || raceTrack.specializations">
+                            <img src="../../../assets/img/publicPage/icon-1.png">
+                          </li>
+                          <li *ngIf="raceTrack.racetrack_equipments || !raceTrack.specializations">
+                            <img src="../../../assets/img/publicPage/icon-2.png">
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <ng-template [ngIf]="raceTrackObj?.total > 10">
+              <div class="container mt-4 mb-4">
+                <pagination [boundaryLinks]="true" [totalItems]="raceTrackObj?.total"
+                  [itemsPerPage]="raceTrackObj?.per_page" [maxSize]="maxSize" [(ngModel)]="currentPage"
+                  (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+                  lastText="&raquo;"></pagination>
+              </div>
+            </ng-template>
+          </ng-template>
+
+          <ng-template #noData>
+            <div class="text-center">
+              <img src="./../../../assets/img/publicPage/no-data.png" alt="No Data" />
+              <p>Click Here To Go To <a routerLink="/">Home</a></p>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="footerbg"></div>
+
+
+<!----------------------- footer ------------------->
+<app-public-footer></app-public-footer>
+<!-----------------------End footer ------------------->

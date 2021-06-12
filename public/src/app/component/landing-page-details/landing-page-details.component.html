@@ -1,0 +1,250 @@
+<app-public-header></app-public-header>
+
+<carousel [noPause]="false">
+
+  <slide *ngFor="let image of raceTrackDetails.imageUrls">
+    <section class="inner-banner" [style.background]="'url(' + image + ')'">
+      <div class="container">
+        <div class="back">
+          <div class="btn-div">
+            <a (click)="goBack()" class="btn btn-default"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>Back
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="details">
+              <h4>{{ raceTrackDetails.name }}</h4>
+              <rating [(ngModel)]="raceTrackDetails.rating" [max]="5" [readonly]="true"></rating>
+
+              <p>{{ raceTrackDetails.desc }}</p>
+              <div class="btn-div">
+                <button type="button" class="btn btn-default" (click)="openModal(gallery)"><i class="fa fa-picture-o" aria-hidden="true"></i> View
+                  Gallery</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </slide>
+</carousel>
+
+<section class="track-details">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h4 class="raceTrackName2" *ngIf="!raceTrackDetails.imageUrls">{{ raceTrackDetails.name }}</h4>
+        <div class="details-row">
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home">Details of Race Track</a>
+            </li>
+            <li class="nav-item" *ngIf="raceTrackDetails.racetrack_equipments"><a class="nav-link" data-toggle="tab"
+                href="#menu1">Equipment</a></li>
+            <li class="nav-item" *ngIf="raceTrackDetails.racetrack_servicemans"><a class="nav-link" data-toggle="tab"
+                href="#menu2">Mehcanic</a></li>
+
+          </ul>
+
+          <div class="tab-content">
+            <div id="home" class="tab-pane active">
+              <div class="text-div">
+                <h3>{{ raceTrackDetails.name }}</h3>
+                <p>{{ raceTrackDetails.desc }}</p>
+              </div>
+              <div class="text-div">
+                
+          <!-- <bs-daterangepicker-inline [bsValue]="bookedDate" [bsConfig]="datePickerConfig"></bs-daterangepicker-inline> -->
+                <!-- <h4>Contact Detail :</h4>
+                <div class="text-box dtl-box">
+                  <ul>
+                    <li><i class="fa fa-user" aria-hidden="true"></i>John Doe</li>
+                    <li><i class="fa fa-phone" aria-hidden="true"></i><a href="tel:+91-0011001125">+91-0011001125</a>
+                    </li>
+                    <li><i class="fa fa-envelope" aria-hidden="true"></i><a
+                        href="mailto:johndoe@gmail.com">+johndoe@gmail.com</a></li>
+                    <li><i class="fa fa-check-square-o" aria-hidden="true"></i><a href="#">Available for sharing</a>
+                    </li>
+                  </ul>
+                </div> -->
+                <button type="button" class="contact-btn" (click)="openModal(template)">Contact Us</button>
+              </div>
+            </div>
+            <div id="menu1" class="tab-pane ">
+              <div class="text-div" *ngFor="let equipment of raceTrackDetails.racetrack_equipments">
+                <h3>{{ equipment.equipments.name }}</h3>
+                <p>{{ equipment.equipments.desc }}</p>
+              </div>
+              <div class="text-div">
+
+                <div class="text-box dtl-box">
+                  <ul>
+                    <li>Categories : Lorem ipsum</li>
+                    <li>Sub Categories : Lorem ipsum</li>
+                    <li>Size/Item Sepcific : Lorem ipsum</li>
+
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div id="menu2" class="tab-pane">
+              <div class="text-div" *ngFor="let serviceman of raceTrackDetails.racetrack_servicemans">
+                <h3>{{ serviceman.servicemans.name }}</h3>
+                  <ul>
+                    <li *ngFor="let spec of serviceman.servicemans.specializations">{{ spec }}</li>
+                  </ul>
+              </div>
+              <div class="text-div">
+
+                <div class="text-box dtl-box">
+                  <ul>
+                    <li>Categories : Lorem ipsum</li>
+                    <li>Sub Categories : Lorem ipsum</li>
+                    <li>Size/Item Sepcific : Lorem ipsum</li>
+
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="video-box">
+          <iframe width="350" height="270" src="https://www.youtube.com/embed/tgbNymZ7vqY?controls=1">
+          </iframe>
+        </div>
+        <div class="calender-row" *ngIf="isShowCalender">
+          
+          <bs-datepicker-inline [bsConfig]="datePickerConfig"></bs-datepicker-inline>
+ 
+          
+<!-- 
+          <div class="month">
+            <ul>
+              <li class="prev">&#10094;</li>
+              <li class="next">&#10095;</li>
+              <li>
+                August 2017
+              </li>
+            </ul>
+          </div>
+
+          <ul class="weekdays">
+            <li>Mo</li>
+            <li>Tu</li>
+            <li>We</li>
+            <li>Th</li>
+            <li>Fr</li>
+            <li>Sa</li>
+            <li>Su</li>
+          </ul>
+
+          <ul class="days">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>10</li>
+            <li>11</li>
+            <li>12</li>
+            <li>13</li>
+            <li>14</li>
+            <li>15</li>
+            <li>16</li>
+            <li>17</li>
+            <li>18</li>
+            <li>19</li>
+            <li>20</li>
+            <li>21</li>
+            <li>22</li>
+            <li>23</li>
+            <li>24</li>
+            <li>25</li>
+            <li>26</li>
+            <li><span class="active">27</span></li>
+            <li>28</li>
+            <li>29</li>
+            <li>30</li>
+            <li>31</li>
+          </ul> -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<!----------------------- footer ------------------->
+<app-public-footer></app-public-footer>
+<!-----------------------End footer ------------------->
+
+
+<!-- Modal for Contact us -->
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Contact Us</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="contactUsForm" novalidate autocomplete="off" (submit)="submitContact()">
+      <input type="hidden" formControlName="entity_id" />
+      <div class="form-group">
+        <label for="fullName">Full Name <small>*</small></label>
+        <input type="text" class="form-control" id="fullName" placeholder="Enter Full Name" formControlName="name" />
+        <p class="text-danger mb-1">
+          <span *ngIf="contactUsForm.controls.name.errors && (contactUsForm.controls.name.dirty || contactUsForm.controls.name.touched)">
+            Input field is required.
+          </span>
+        </p>
+      </div>
+      <div class="form-group">
+        <label for="mobileNo">Mobile No. <small>*</small></label>
+        <input type="text" class="form-control" id="mobileNo" placeholder="Enter Mobile Number" formControlName="mobile" />
+        <p class="text-danger mb-1">
+          <span *ngIf="contactUsForm.controls.mobile.errors && (contactUsForm.controls.mobile.dirty || contactUsForm.controls.mobile.touched)">
+            Input field is required.
+          </span>
+        </p>
+      </div>
+      <div class="form-group">
+        <label for="email">E-Mail <small>*</small></label>
+        <input type="email" class="form-control" id="email" placeholder="Enter E-Mail" formControlName="email" />
+        <p class="text-danger mb-1">
+          <span *ngIf="contactUsForm.controls.email.errors && (contactUsForm.controls.email.dirty || contactUsForm.controls.email.touched)">
+            Input field is required.
+          </span>
+        </p>
+      </div>
+      <div class="form-group">
+        <label for="message">Message </label>
+        <input type="text" class="form-control" id="message" placeholder="Write Your Message" formControlName="message" />
+      </div>
+      <button type="submit" class="btn btn-danger" [disabled]="contactUsForm.invalid">Submit</button>
+    </form>
+  </div>
+</ng-template>
+
+
+<!-- Modal for Gallery -->
+
+<ng-template #gallery>
+  <div class="modal-body" id="gallery">
+    <carousel>
+
+      <slide *ngFor="let image of raceTrackDetails.imageUrls">
+        <img [src]="image" alt="image" width="100%" />
+      </slide>
+    </carousel>
+  </div>
+</ng-template>

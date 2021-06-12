@@ -1,0 +1,61 @@
+<div class="header">
+  <app-header></app-header>
+  <div class="row">
+    <div class="col">
+      <aside>
+        <div class="sidebar_wrap">
+          <app-sidebar></app-sidebar>
+        </div>
+      </aside>
+    </div>
+    <div class="col-9">
+      <div class="container-fluid  main-content content_wrapper">
+        <div class="overlay"></div>
+        <div class="top_head clearfix">
+          <div class="main-title float-left">
+            Servicemans
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Contact No.</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Ratings</th>
+                <th class="text-center">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container>
+                <tr *ngFor="let servicemanLists of servicemanConfig?.data">
+                  <td>{{servicemanLists?.name}}</td>
+                  <td>{{servicemanLists?.contact_no}}</td>
+                  <td>{{servicemanLists?.email_id}}</td>
+                  <td>{{servicemanLists?.address}}</td>
+                  <td>{{servicemanLists?.rating}}</td>
+                  <td class="text-center"><span class="active st_btn" *ngIf="servicemanLists?.status == 'Active'"
+                      (click)="changeStatus('Inactive',servicemanLists.id)">Active</span>
+                    <span class="inactive st_btn" *ngIf="servicemanLists?.status == 'Inactive'"
+                      (click)="changeStatus('Active',servicemanLists.id)">Inactive</span>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+          <ng-template [ngIf]="servicemanConfig?.total > 10">
+            <div class="container mt-4 mb-4">
+              <pagination [boundaryLinks]="true" [totalItems]="servicemanConfig?.total"
+                [itemsPerPage]="servicemanConfig?.per_page" [maxSize]="maxSize" [(ngModel)]="currentPage"
+                (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+                lastText="&raquo;"></pagination>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

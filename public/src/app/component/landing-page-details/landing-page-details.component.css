@@ -1,0 +1,322 @@
+
+.btn-div .btn-default{
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ff005c+0,ff0106+100 */
+background: #ff005c; /* Old browsers */
+background: -moz-linear-gradient(left,  #ff005c 0%, #ff0106 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  #ff005c 0%,#ff0106 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right,  #ff005c 0%,#ff0106 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff005c', endColorstr='#ff0106',GradientType=1 ); /* IE6-9 */
+    color: #fff;
+    border: none;
+    padding: 15px 50px;
+    font-size: 18px;
+    box-shadow: -1px 7px 8px 2px #ff010a99 !important;
+    border-radius: 5px;
+}
+
+
+/*---------------------iner page---------------------*/
+.inner-banner{
+    background: url(../../../assets/img/publicPage/banner-1.jpg) no-repeat;
+    background-size: cover;
+    background-position:50% 50%; 
+    height: 90vh;
+    padding: 50px 0;
+    position: relative;
+
+}
+.inner-banner:before{
+    position: absolute;
+    content: "";
+    background: rgb(0,0,0);
+    background: linear-gradient(111deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5354516806722689) 51%, rgba(0,0,0,0) 100%);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.inner-banner .back{
+    margin: 0 0 30px;
+    position: relative;
+    z-index: 1;
+}
+
+.inner-banner .btn-div {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-size: 18px;
+    color: #fff;
+}
+.inner-banner .back .btn-default{
+width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: block;
+    padding: 10px;
+    text-align: center;
+    margin-right: 10px; 
+}
+
+ :root {
+  --star-size: 60px;
+  --star-color: #fff;
+  --star-background: #fc0;
+}
+
+
+.inner-banner .details{
+    padding: 40px 0;
+}
+.inner-banner .details h4{
+    font-size: 28px;
+    color: #fff;
+}
+.inner-banner .details  p{
+    font-size: 20px;
+    color: #fff;
+    margin: 0 0 30px;
+}
+
+
+/*---------------track details-------------*/
+.track-details{
+    padding: 90px 0;
+    background: #131b2f;
+}
+.track-details .nav-tabs{
+    border: none;
+}
+
+.track-details .nav-tabs li a{
+    font-size: 20px;
+    font-family: "Poppins";
+    color:#fff;
+    text-align: center;
+    border: none;
+    padding: 5px 20px;
+        border-radius: 7px 7px 0 0;
+}
+.track-details .nav-tabs li a.active, .track-details .nav-tabs li a:hover{
+    background: #ff005c;
+    background: -moz-linear-gradient(left, #ff005c 0%, #ff0106 100%);
+    background: -webkit-linear-gradient(left, #ff005c 0%,#ff0106 100%);
+    background: linear-gradient(to right, #ff005c 0%,#ff0106 100%);
+    font-size: 20px;
+    font-family: "Poppins";
+    color:#fff;
+    border:none;
+}
+.track-details  .tab-pane{
+    padding: 20px;
+}
+.track-details .tab-pane ul {
+    list-style-type: disc;
+    color: #ccc;
+    font-size: 18px;
+
+}
+.track-details  .text-div{
+    min-height: 350px;
+    margin: 0 0 30px;
+}
+.track-details   .text-div:last-child{
+    min-height: 100%;
+}
+.track-details h3{
+    font-size: 20px;
+    color: #fff;
+    border-bottom: 1px solid #fff;
+    display: inline-block;
+    padding: 0 0 20px;
+    margin: 0 0 10px;
+}
+.track-details   p{
+    font-size: 16px;
+    color: #fff;
+    line-height: 28px;
+}
+.track-details   .text-box{
+    padding:40px;
+     background: #ff005c;
+    background: -moz-linear-gradient(left, #ff005c 0%, #ff0106 100%);
+    background: -webkit-linear-gradient(left, #ff005c 0%,#ff0106 100%);
+    background: linear-gradient(to right, #ff005c 0%,#ff0106 100%);
+    max-width: 350px;
+
+}
+.track-details  .tab-pane .text-div h4 {
+    font-size: 20px;
+    margin: 0 0 30px;
+    color: #fff;
+    font-weight: normal;
+}
+.track-details  .text-box  ul{
+    padding: 0;
+}
+.track-details  .text-box  ul li{
+    margin: 0 0 10px;
+    list-style: none;
+    color: #fff;
+    font-size: 16px;
+}
+.track-details   .text-box  li a{
+    color: #fff;
+    font-size: 16px;
+}
+.track-details   .text-box  li .fa{
+    margin-right: 10px;
+    color: #fff;
+    font-size: 20px; 
+}
+
+/*------------video-box--------------*/
+.video-box{
+    width: 100%;
+    margin: 0 0 30px;
+
+}
+.video-box  video{
+        width: 100%;
+    }
+
+.video-box iframe { border: 0px; }
+
+/*.--------------------calender-row------------*/
+  ul {list-style-type: none;}
+.month {
+    padding: 15px 25px;
+    width: 100%;
+    background: #ff005c;
+    background: -moz-linear-gradient(left, #ff005c 0%, #ff0106 100%);
+    background: -webkit-linear-gradient(left, #ff005c 0%,#ff0106 100%);
+    background: linear-gradient(to right, #ff005c 0%,#ff0106 100%);
+      text-align: center;
+      color: #fff;
+}
+
+.month ul {
+  margin: 0;
+  padding: 0;
+}
+
+.month ul li {
+  color: white;
+  font-size: 20px;
+  text-transform: capitalize;
+  letter-spacing: 3px;
+}
+
+.month .prev {
+  float: left;
+
+}
+
+.month .next {
+  float: right;
+
+}
+
+.weekdays {
+  margin: 0;
+  padding:10px 10px 0;
+  background-color: #fff;
+}
+
+.weekdays li {
+list-style-type: none;
+    display: inline-block;
+    width: 13%;
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: 12px;
+    color: #131b2f;
+}
+
+.days {
+  padding: 0 10px 20px;
+  background: #fff;
+  margin: 0;
+}
+
+.days li {
+  list-style-type: none;
+  display: inline-block;
+  width: 13%;
+  text-align: center;
+  margin-bottom: 5px;
+  font-size:12px;
+  color: #131b2f;
+}
+
+.days li .active {
+  padding: 5px;
+    background: #ff005c;
+    background: -moz-linear-gradient(left, #ff005c 0%, #ff0106 100%);
+    background: -webkit-linear-gradient(left, #ff005c 0%,#ff0106 100%);
+    background: linear-gradient(to right, #ff005c 0%,#ff0106 100%);
+  color: white !important;
+  width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: block;
+
+}
+
+.contact-btn{
+    background: #ff005c;
+    background: linear-gradient(to right, #ff005c 0%,#ff0106 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff005c', endColorstr='#ff0106',GradientType=1 );
+    color: #fff;
+    border: none;
+    padding: 13px 25px;
+    font-size: 16px;
+    box-shadow: -1px 7px 8px 2px #ff010a99;
+    border-radius: 5px;
+}
+label {
+    color: #6f6969;
+}
+.modal-header {
+    background: linear-gradient(to right, #ff005c 0%,#ff0106 100%);
+    color: white;
+}
+.modal-header .close span {
+    color: #fff;
+}
+.modal-body {
+    background: #f1e8e8;
+}
+
+#gallery {
+    padding: 0px;
+    box-shadow: 0 0 10px 0 #968181;
+}
+.raceTrackName2{
+    font-size: 28px;
+    color: #fff;
+    margin-top: -40px;
+    margin-bottom: 40px;
+}
+/* span.disabled::after {
+    content: "N/A";
+    position: absolute;
+    font-size: 10px;
+    color: red;
+    left: 8px;
+    background: #ffffff;
+    border-radius: 50%;
+    padding: 0;
+    height: 20px;
+    width: 20px
+} */
+
+/* .bs-datepicker-body table td span.disabled::after {
+    content: 'N/A';
+} */
+
+
+
+
+
+

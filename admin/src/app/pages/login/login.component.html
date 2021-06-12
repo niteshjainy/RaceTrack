@@ -1,0 +1,46 @@
+<div class="login-wrap">
+
+  <div class="login-block">
+    <div class="container">
+      <div class="middle-login">
+        <div class="content-wraps">
+          <h3 class="text-center logo">
+            <img src="assets/img/logo.png" alt="logo">
+          </h3>
+          <h3 class="mb-5"><b>Login to RaceTrack</b></h3>
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label>Email</label>
+              <div class="input-group">
+                <img src="assets/img/user-icon.png" class="icon" alt="email">
+                <input type="email" formControlName="email_id" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                  placeholder="Email" class="form-control pl-5" required>
+                <div *ngIf="formService.validate(form,'email_id')" class="invalid-feed">This user is not recognised,
+                  please try again with a valid email address</div>
+              </div>
+            </div>
+            <div class="">
+              <label>Password</label>
+              <div class="input-group">
+                <img src="assets/img/password-icon.png" class="icon" alt="email">
+                <input type="password" placeholder="Password" formControlName="password" class="form-control pl-5"
+                  required>
+                <div *ngIf="formService.validate(form,'password')" class="invalid-feed password-error">Password should
+                  not
+                  be empty</div>
+              </div>
+            </div>
+            <div class="error-msg mt-2" *ngIf="loginStatus == false">
+              {{loginError}}
+            </div>
+            <div class="text-center mt-4">
+              <button type="submit" [disabled]="form.invalid" class="btn btn-secondary w-100" click="onSubmit()">Log
+                In</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

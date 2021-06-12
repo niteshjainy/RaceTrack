@@ -1,0 +1,62 @@
+<div class="header">
+  <app-header></app-header>
+  <div class="row">
+    <div class="col">
+      <aside>
+        <div class="sidebar_wrap">
+          <app-sidebar></app-sidebar>
+        </div>
+      </aside>
+    </div>
+    <div class="col-9">
+      <div class="container-fluid  main-content content_wrapper">
+        <div class="overlay"></div>
+        <div class="top_head clearfix">
+          <div class="main-title float-left">
+            Equipments
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Contact No.</th>
+              <th>Email</th>
+              <th>Ratings</th>
+              <th class="text-center">Status</th>
+            </thead>
+            <tbody>
+              <ng-container>
+                <tr *ngFor="let equipmentsLists of equipmentConfig?.data">
+                  <td><span><img src="assets/img/dummy.png" alt=""></span></td>
+                  <td>{{equipmentsLists?.name}}</td>
+                  <td>{{equipmentsLists?.desc}}</td>
+                  <td>{{equipmentsLists?.contact_no}}</td>
+                  <td>{{equipmentsLists?.email_id}}</td>
+                  <td>{{equipmentsLists?.rating}}</td>
+                  <td class="text-center"><span class="active st_btn" *ngIf="equipmentsLists?.status == 'Active'"
+                      (click)="changeStatus('Inactive',equipmentsLists.id)">Active</span>
+                    <span class="inactive st_btn" *ngIf="equipmentsLists?.status == 'Inactive'"
+                      (click)="changeStatus('Active',equipmentsLists.id)">Inactive</span>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+          <ng-template [ngIf]="equipmentConfig?.total > 10">
+            <div class="container mt-4 mb-4">
+              <pagination [boundaryLinks]="true" [totalItems]="equipmentConfig?.total"
+                [itemsPerPage]="equipmentConfig?.per_page" [maxSize]="maxSize" [(ngModel)]="currentPage"
+                (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+                lastText="&raquo;"></pagination>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

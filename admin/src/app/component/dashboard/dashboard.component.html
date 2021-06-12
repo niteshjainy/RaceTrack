@@ -1,0 +1,283 @@
+<div class="header">
+  <app-header></app-header>
+  <div class="row">
+    <div class="col">
+      <aside>
+        <div class="sidebar_wrap">
+          <app-sidebar></app-sidebar>
+        </div>
+      </aside>
+    </div>
+    <div class="col-9">
+      <div class="container-fluid  main-content">
+        <div class="overlay"></div>
+        <div class="top_head clearfix">
+          <div class="main-title float-left">
+            DASHBOARD
+          </div>
+        </div>
+        <div class="row flex-body">
+          <div class="col-lg-4">
+            <div class="dt-card" routerLink="/race-track">
+              <div class="dt-card__body text-center">
+                <div class="img-wrap">
+                  <img src="assets/img/accept.png" alt="">
+                </div>
+                <p class="card-text name">Total Racetracks</p>
+              </div>
+              <div class="bottom-info text-center  py-2">
+                <span>5</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="dt-card" routerLink="/equipments">
+              <div class="dt-card__body text-center">
+                <div class="img-wrap">
+                  <img src="assets/img/accept.png" alt="">
+                </div>
+                <p class="card-text name">Total Equipments</p>
+              </div>
+              <div class="bottom-info text-center  py-2">
+                <span>5</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="dt-card" routerLink="/servicemans">
+              <div class="dt-card__body text-center">
+                <div class="img-wrap">
+                  <img src="assets/img/accept.png" alt="">
+                </div>
+                <p class="card-text name">Total Servicemans</p>
+              </div>
+              <div class="bottom-info text-center  py-2">
+                <span>5</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="dt-card" routerLink="/general-category">
+              <div class="dt-card__body text-center">
+                <div class="img-wrap">
+                  <img src="assets/img/accept.png" alt="">
+                </div>
+                <p class="card-text name">Total Categories</p>
+              </div>
+              <div class="bottom-info text-center  py-2">
+                <span>15</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="dt-card" routerLink="/types">
+              <div class="dt-card__body text-center">
+                <div class="img-wrap">
+                  <img src="assets/img/accept.png" alt="">
+                </div>
+                <p class="card-text name">Total Types</p>
+              </div>
+              <div class="bottom-info text-center  py-2">
+                <span>4</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="dt-card" routerLink="#">
+              <div class="dt-card__body text-center">
+                <div class="img-wrap">
+                  <img src="assets/img/accept.png" alt="">
+                </div>
+                <p class="card-text name">Total Users</p>
+              </div>
+              <div class="bottom-info text-center  py-2">
+                <span>4</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row flex-body">
+          <div class="col-sm-12">
+            <div class="top_head clearfix pr-3">
+              <div class="main-title float-left">
+                RECENT RACETRACKS
+              </div>
+              <div class="main-title float-right">
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th>Shared</th>
+                  <th>Eq Present</th>
+                  <th>Sm Present</th>
+                  <th>Status</th>
+                </thead>
+                <tbody>
+                  <ng-container>
+                    <tr *ngFor="let racetrack of racetrackList | slice:0:5">
+                      <td>{{racetrack?.name}}</td>
+                      <td>{{racetrack?.type?.name || 'NA'}}</td>
+                      <td>{{racetrack?.shared == 0 ? 'No' : 'Yes'}}</td>
+                      <td>{{racetrack?.racetrack_equipments.length == 0  ? 'No' : 'Yes'}}</td>
+                      <td>{{racetrack?.racetrack_servicemans.length == 0  ? 'No' : 'Yes'}}</td>
+                      <td>{{racetrack?.status}}</td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+            <h6 class="text-right p-3">
+              <a routerLink='/race-track'>VIEW ALL</a>
+            </h6>
+          </div>
+        </div>
+
+        <!-- Equipments -->
+        <div class="row flex-body">
+          <div class="col-sm-12">
+            <div class="top_head clearfix pr-3">
+              <div class="main-title float-left">
+                RECENT EQUIPMENTS
+              </div>
+              <div class="main-title float-right">
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Contact No.</th>
+                  <th>Email Id</th>
+                  <th>Ratings(*)</th>
+                  <th>Status</th>
+                </thead>
+                <tbody>
+                  <ng-container>
+                    <tr *ngFor="let equipment of equipmentsList | slice:0:5">
+                      <td>{{equipment?.name}}</td>
+                      <td>{{equipment?.desc}}</td>
+                      <td>{{equipment?.contact_no}}</td>
+                      <td>{{equipment?.email_id}}</td>
+                      <td>{{equipment?.rating}} STARS</td>
+                      <td>{{equipment?.status}}</td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+            <h6 class="text-right p-3">
+              <a routerLink='/equipments'>VIEW ALL</a>
+            </h6>
+          </div>
+        </div>
+
+        <!-- Servicemans -->
+        <div class="row flex-body">
+          <div class="col-sm-12">
+            <div class="top_head clearfix pr-3">
+              <div class="main-title float-left">
+                RECENT SERVICEMANS
+              </div>
+              <div class="main-title float-right">
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <th>Name</th>
+                  <th>Contact No.</th>
+                  <th>Email</th>
+                  <th>Address</th>
+                  <th>Ratings</th>
+                  <th class="text-center">Status</th>
+                </thead>
+                <tbody>
+                  <ng-container>
+                    <tr *ngFor="let sm of servicemansList | slice:0:5">
+                      <td>{{sm?.name}}</td>
+                      <td>{{sm?.contact_no}}</td>
+                      <td>{{sm?.email_id}}</td>
+                      <td>{{sm?.address}}</td>
+                      <td>{{sm?.rating}} STARS</td>
+                      <td>{{sm?.status}}</td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+            <h6 class="text-right p-3">
+              <a routerLink='/servicemans'>VIEW ALL</a>
+            </h6>
+          </div>
+        </div>
+        <!-- Categories -->
+        <div class="row flex-body">
+          <div class="col-sm-12">
+            <div class="top_head clearfix pr-3">
+              <div class="main-title float-left">
+                RECENT CATEGORIES
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                </thead>
+                <tbody>
+                  <ng-container>
+                    <tr *ngFor="let category of categoriesList | slice:0:5">
+                      <td>{{category?.name}}</td>
+                      <td>{{category?.desc}}</td>
+                      <td>{{category?.status}}</td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+            <h6 class="text-right p-3">
+              <a routerLink='/general-category'>VIEW ALL</a>
+            </h6>
+          </div>
+        </div>
+        <!-- Types -->
+        <div class="row flex-body">
+          <div class="col-sm-12">
+            <div class="top_head clearfix pr-3">
+              <div class="main-title float-left">
+                RECENT TYPES
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                </thead>
+                <tbody>
+                  <ng-container>
+                    <tr *ngFor="let type of typesList | slice:0:5">
+                      <td>{{type?.name}}</td>
+                      <td>{{type?.desc}}</td>
+                      <td>{{type?.status}}</td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+            <h6 class="text-right p-3">
+              <a routerLink='/types'>VIEW ALL</a>
+            </h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

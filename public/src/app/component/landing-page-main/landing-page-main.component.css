@@ -1,0 +1,231 @@
+@charset "utf-8";
+/* CSS Document */
+
+a:focus,
+a:hover{
+    outline:none;
+    text-decoration: none;
+}
+
+h1{
+    font-size:86px;
+    
+}
+h2{
+    font-size:40px;
+    
+
+}
+h3{
+    font-size:20px;
+
+}
+
+
+.red{
+    color: #dd0e0e;
+}
+
+.black{
+    background: #000;
+}
+
+
+.btn-div .btn-default{
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ff005c+0,ff0106+100 */
+background: #ff005c; /* Old browsers */
+background: -moz-linear-gradient(left,  #ff005c 0%, #ff0106 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  #ff005c 0%,#ff0106 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right,  #ff005c 0%,#ff0106 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff005c', endColorstr='#ff0106',GradientType=1 ); /* IE6-9 */
+    color: #fff;
+    border: none;
+    padding: 15px 50px;
+    font-size: 18px;
+       box-shadow: -1px 7px 8px 2px #ff010a99;
+}
+
+
+/*---------------------Slider-CSS--------------------*/
+.main-banner{
+    background: url(../../../assets/img/publicPage/banner-bg.jpg) no-repeat;
+    background-size: cover;
+    height: 100vh;
+    padding: 50px 0;
+   
+    background-position: top left;
+}
+.main-banner .form-wrap {
+    background: #ffffff47;
+    border-radius: 5px;
+    padding:30px 30px;
+ 
+}
+.main-banner .form-wrap h3{
+    font-size: 28px;
+    color: #fff;
+    margin: 0 0 20px;
+}
+.main-banner .form-wrap .input-group, .main-banner .form-wrap select{
+    height: 50px !important;
+    border-radius: 5px;
+    background: #fff !important;
+    font-size: 14px;
+    color: #8e8e8e;
+    box-shadow: 0px 1px 6px 0px #00000021;
+    border: 0px;
+}
+.main-banner .input-group .form-control {
+    height: 50px;
+}
+.main-banner .form-wrap .fa{
+        padding: 6px 8px;
+    line-height: 33px;
+    color: #8e8e8e;
+
+}
+.main-banner .form-wrap .btn-default {
+    border-radius: 5px;
+}
+
+.input-group input{
+    border-right: 0;
+    background: none;
+        border: none;
+        color: #8e8e8e;
+}
+
+.main-banner .btn-div .btn-default{
+    max-width: 200px;
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+}
+.main-banner .btn-div .btn-default .fa{
+    padding: 0;
+        line-height: 0;
+}
+
+.banner-text{
+    text-align: right;
+}
+.banner-text h1{
+    color: #fff;
+    font-size: 90px;
+}
+
+
+.bdr-line{
+    background: #ff005c; /* Old browsers */
+background: -moz-linear-gradient(left,  #ff005c 0%, #ff0106 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  #ff005c 0%,#ff0106 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right,  #ff005c 0%,#ff0106 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff005c', endColorstr='#ff0106',GradientType=1 ); /* IE6-9 */
+box-shadow: -1px 7px 8px 2px #ff010a99;
+    height: 8px;
+}
+
+
+
+/*-----------------------testimonial---------------------*/
+.top-track{
+    position: relative;
+    padding: 120px 0 0px;
+    background: #000;
+
+}
+.top-track h2{
+        text-align: left;
+        margin: 0 0 50px;
+        color: #999;
+    }
+.top-track > div{
+    text-align: center;
+        margin: 0 auto;
+}
+
+
+.top-track .item{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    width: 438px;
+    height: 100%;
+    transform: scale(0.9);
+    transition: all 0.3s;
+}
+.top-track  .item:hover {
+  transform: scale(1);
+  transition: all 0.3s;
+}
+
+.top-track .item img{
+    border-radius: 10px;
+    object-fit: cover;
+    width: 100% !important;
+    height: 100%;
+}
+.top-track  .item:hover .content{
+    height: 70%;
+    opacity: 1;
+    transition: all 0.3s;
+}
+
+.top-track .content{
+    padding:10px;
+    position: absolute;
+    text-align: left;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    width: 100%;
+    height: 0%;
+    opacity: 0;
+background: rgb(0,0,0);
+background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgb(0 0 0 / 99%) 63%, rgb(0 0 0 / 0%) 99%);
+transition: all 0.3s;
+}
+
+
+.top-track .content h3{
+    font-size: 37px;
+    font-weight: 100;
+    font-family: "Poppins";
+    color:#fff;
+
+}
+.top-track .content h4{
+    font-size: 25px;
+    font-style: italic;
+    font-family: "Poppins";
+     color:#fff;
+}
+.top-track .content p{
+    font-size: 24px;
+    font-weight: 100;
+     color:#fff;
+}
+.top-track drag-scroll {
+    height: 320px;
+}
+.top-track .slider_btn button{
+    width: 40px;
+    height: 40px;
+    background: #fff !important;
+    border-radius: 50%;
+    margin: 5px;
+    color: #000 !important;
+    border: 0px;
+    transition: all 0.3s;
+}
+.top-track .slider_btn button:hover{
+    box-shadow:0px 3px 14px 2px #ff010a85;
+    transition: all 0.3s;
+    color: #fff !important;
+    background: #ff005c !important;
+    background: -moz-linear-gradient(left, #ff005c 0%, #ff0106 100%) !important;
+    background: -webkit-linear-gradient(left, #ff005c 0%,#ff0106 100%) !important;
+    background: linear-gradient(to right, #ff005c 0%,#ff0106 100%) !important;
+}

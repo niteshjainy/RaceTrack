@@ -1,0 +1,254 @@
+
+ul {
+    list-style-type: none;
+}
+.search-sec{
+    background:#030303;
+    padding: 0PX 0 23px;
+}
+.search-sec #btn{
+float: right;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: block;
+    padding: 0px;
+    text-align: center;
+    background: #ff005c;
+    background: -moz-linear-gradient(left, #ff005c 0%, #ff0106 100%);
+    background: -webkit-linear-gradient(left, #ff005c 0%,#ff0106 100%);
+    background: linear-gradient(to right, #ff005c 0%,#ff0106 100%);
+    color: #fff;
+    border: none;
+    font-size: 23px;
+    box-shadow: -1px 7px 8px 2px #ff010a99;
+    cursor: pointer;
+}
+.search-sec input[type="date"] {
+  position: relative;
+  padding: 10px;
+}
+
+.search-sec input[type="date"]::-webkit-calendar-picker-indicator {
+  color: transparent;
+  background: none;
+  z-index: 1;
+}
+
+.search-sec input[type="date"]:before {
+  color: transparent;
+  background: none;
+  display: block;
+  font-family: 'FontAwesome';
+  content: '\f073';
+  /* This is the calendar icon in FontAwesome */
+  width: 15px;
+  height: 20px;
+  position: absolute;
+  top: 12px;
+  right: 11px;
+  color: #999;
+}
+
+.myDIV {
+    display: none;
+    width: 90%;
+    padding: 0px 0;
+    text-align: center;
+    margin-top: 0px;
+    float: left;
+}
+#myDIV form .inputs-row {
+    border-bottom: 1px solid #3a3a3a; 
+}
+#myDIV .form-group{
+    margin: 0;
+}
+#myDIV .form-control{
+    background: none;
+    color: #fff;
+    border: none;
+
+}
+ng-autocomplete ::ng-deep .not-found div{ 
+    color: #333;
+}
+#myDIV .form-control option {
+    color: #000;
+}
+#myDIV .form-control::placeholder{
+    color: #fff;
+}
+#myDIV .btn{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: block;
+    padding: 0px;
+    text-align: center;
+    margin-right: 10px;
+    background: #ff005c;
+    background: -moz-linear-gradient(left, #ff005c 0%, #ff0106 100%);
+    background: -webkit-linear-gradient(left, #ff005c 0%,#ff0106 100%);
+    background: linear-gradient(to right, #ff005c 0%,#ff0106 100%);
+    color: #fff;
+    border: none;
+    font-size: 23px;
+    box-shadow: -1px 7px 8px 2px #ff010a99;
+    cursor: pointer;
+}
+#myDIV .text-danger {
+    font-size: 11px;
+}
+
+#myDIV .input-group i {
+    color: #8e8e8e;
+    line-height: 40px;
+}
+
+.search_data {
+    color: #ccc;
+}
+.search_data h4 {
+    border-bottom: 1px solid;
+    padding-bottom: 10px;
+}
+.search-sec button:focus {
+    outline: none !important;
+}
+
+.ng-autocomplete {
+    width: auto;
+}
+
+/*-------------------listing-sec-----------------*/
+.listing-bg{
+    background: url(../../../assets/img/publicPage/race-car-bg.png) no-repeat;
+    width: 100%;
+    background-size: 100%;
+    background-position: 50% 100%;
+}
+    
+    
+.listing-sec{
+    padding: 70px 0;
+    /*background: #fff;*/
+/*    background: rgb(255,255,255);
+background: linear-gradient(0deg, rgba(255,255,255,0.11668417366946782) 0%, rgba(255,255,255,1) 100%);*/
+    background-size: 100%;
+    background-position: 80% 100%;
+    position: relative;
+    z-index: 1;
+
+}
+.listing-sec .list-wrap {
+    background: #fff;
+    padding: 10px;
+}
+.listing-sec .content-box{
+    padding: 20px 0;
+    border-bottom: 1px solid #c7c7c7;
+}
+.listing-sec .content-box:first-child{
+    padding-top: 0; 
+}
+.listing-sec .content-box:last-child{
+ border: none;
+}
+.listing-sec .content-box h4{
+    font-size: 22px;
+    font-family: "Poppins";
+    font-weight: normal;
+    color: #282828;
+    margin: 0 0 20px;
+}
+.listing-sec .content-box ul {
+    padding: 0;
+}
+.listing-sec .content-box ul li{
+    /*margin: 0 0 10px;*/
+    font-size:18px; 
+   color:#282828;
+}
+.listing-sec .content-box ul li input{
+    margin-right: 5px;
+}
+      
+  .listing-sec .list-row {
+      position: relative;
+      padding:15px 0 10px;
+      border-bottom: 1px solid #c7c7c7;
+  }
+  .listing-sec .list-row:first-child{
+      padding-top: 0; 
+  }
+  .listing-sec .list-row:last-child{
+      border: none;
+      padding-bottom: 0; 
+  }
+  .list-row .img-box{
+      height: 250px;
+      display: flex;
+  }
+  .list-row .img-box img{
+      object-fit: cover;
+      object-position: center;
+      width: 100%;
+      border-radius: 5px;
+  }
+  .list-row .text {
+      padding:20px 30px 0;
+  }
+  .list-row .text h3{
+      font-size: 24px;
+      color: #282828;
+      font-family: "Poppins";
+      font-weight:normal;
+      margin: 0 0;
+  }
+  .list-row .text h3 a{
+      color: #282828;
+  }
+  .list-row .text h3 a:hover{
+      color: #ff010a;
+  }
+  .list-row .text p{
+      font-size: 18px;
+      font-family: "Poppins";
+      font-weight:normal;
+       color: #282828;
+  
+  }
+  .list-row .text .icons {
+      text-align: right;
+      margin-top: -20px;
+  
+  }
+  .list-row .text .icons ul{
+      display: flex;
+      justify-content: flex-end;
+      margin: 0;
+  }
+  .list-row .text .icons ul li{
+      background: #fff;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin: 5px;
+          text-align: center;
+      line-height: 50px;
+  }
+  .list-row .text .icons ul li img{
+      width: 30px;
+      margin: 0 auto;
+  }
+  .list-row .text .icons ul li:first-child{
+      background: #49b1f4;
+  }
+  .list-row .text .icons ul li:last-child{
+      background: #e43e3e;
+  }
+
+  ul.spec {
+    list-style-type: disc;
+  }

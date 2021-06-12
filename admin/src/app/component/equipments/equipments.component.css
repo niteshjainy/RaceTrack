@@ -1,0 +1,23 @@
+.modal-content .form-content .form-group {
+    margin-bottom: 2rem !important;
+}
+.img_box {
+    position: relative;
+}
+.img_box img {width: 100%;}
+
+.img_box i {
+    position: absolute;
+    right: -6px;
+    font-size: 20px;
+    color: #ccc;
+    top: -6px;
+    cursor: pointer;
+}
+
+.img_box i:hover {
+    color: red;
+}
+.invalid-feed {
+    bottom: -18px !important;
+}

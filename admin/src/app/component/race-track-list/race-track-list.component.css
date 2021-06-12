@@ -1,0 +1,44 @@
+.img-warpp img {
+    object-fit: cover;
+}
+.img-warpp {
+    position: relative;
+    border: 1px solid #ccc;
+    margin: 5px;
+    padding: 2px;
+    border-radius: 3px;
+    width: 50px;
+    height: 50px;
+}
+
+.cross {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #f5674e;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    line-height: 20px;
+}
+
+.img_box {
+    position: relative;
+}
+.img_box img {width: 100%;}
+
+.img_box i {
+    position: absolute;
+    right: -6px;
+    font-size: 20px;
+    color: #ccc;
+    top: -6px;
+    cursor: pointer;
+}
+
+.img_box i:hover {
+    color: red;
+}

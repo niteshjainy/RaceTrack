@@ -1,0 +1,33 @@
+<div style=" background: #fff; box-shadow: 0 1px 15px rgba(0,0,0,.04), 0 1px 6px rgba(0,0,0,.04);"></div>
+
+<nav class="navbar clearfix navbar-expand-lg navbar-light top-navbar" data-toggle="sticky-onscroll">
+  <div class="header float-left">
+    <img class="logo_for_sidebar menuicon" src="assets/img/menu.png"> 
+    <img src="assets/img/logo.png" class="site-logo" width="120"
+      alt="logo">
+      <strong class="name" style="margin-left: 109px;"> Last DB Changes  -  {{loginDetail?.update_time }}</strong>
+  </div>
+  <div class="d-flex right-content align-items-center justify-content-end">
+
+
+
+
+    <div class="profile-img  d-flex  align-items-center"><!-- routerLink="profile" routerLinkActive="active" -->
+       <span class="mr-2"> 
+        <img *ngIf="profileDetails?.user_image!= null" src="{{profileDetails?.user_image}}" alt="profile"
+          class="img-fluid">
+        <!-- <img  src="assets/img/who.png" alt="profile"  class="img-fluid"> -->
+        <img  src="assets/img/dummy.png" *ngIf="profileDetails?.user_image == null" alt="profile"
+          class="img-fluid"></span>
+      <!-- <img src="assets/img/profile.png" alt="profile"  class="img-fluid"></span> -->
+
+      <strong class="name">{{profileDetails?.first_name}} {{profileDetails?.last_name}}</strong>
+    </div>
+
+  
+
+
+  </div>
+  
+
+</nav>
