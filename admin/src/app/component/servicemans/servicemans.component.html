@@ -196,9 +196,9 @@
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>Select Availability : </label>
+                    <label>Select Month Availability</label>
                     <div class="input-group">
-                      <ng-multiselect-dropdown class="form-control" [placeholder]="'Select Availability'"
+                      <ng-multiselect-dropdown class="form-control" [placeholder]="'Select Month Availability'"
                         [data]="days" formControlName="available_day"
                         [settings]="servicemandropdownSettings" [(ngModel)]="config.editData.available_day" (onSelect)="onServicemanItemSelect($event)"
                         (onDeSelect)="onServicemanDeSelect($event)">
@@ -206,6 +206,30 @@
                           {{servicemanData}}
                         </option>
                       </ng-multiselect-dropdown>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Start Date : <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <input type="text" formControlName="allocation_start_date" placeholder="Start Date"
+                        class="form-control" [bsConfig]="datePickerConfig"  bsDatepicker>
+                      <div *ngIf="formService.validate(servicemanForm,'allocation_start_date')" class="invalid-feed">Start Date is
+                        Required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>End Date : <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <input type="text" formControlName="allocation_end_date" placeholder="End Date"
+                        class="form-control" [bsConfig]="datePickerConfig"  bsDatepicker>
+                      <div *ngIf="formService.validate(servicemanForm,'allocation_end_date')" class="invalid-feed">End Date is
+                        Required
+                      </div>
                     </div>
                   </div>
                 </div>

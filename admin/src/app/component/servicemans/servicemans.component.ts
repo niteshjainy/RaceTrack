@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/service/api.service';
 import $ from "jquery";
 import { FormService } from 'src/app/service/form/form.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-servicemans',
@@ -70,6 +71,8 @@ export class ServicemansComponent implements OnInit {
       ser_lat: ['', Validators.required],
       ser_long: ['', Validators.required],
       available_day: [[], Validators.required],
+      allocation_end_date: ['', Validators.required],
+      allocation_start_date: ['', Validators.required],
     })
   }
   onServicemanItemSelect(item: any) {
@@ -124,11 +127,11 @@ export class ServicemansComponent implements OnInit {
     }
 
     this._ngxSpinnerSvc.show();
-    // if(this.availableDay && this.availableDay.length) {
-    //   this.availableDay.forEach(item => {
-    //     formData.append('servicemans[]', item);
-    //   })
-    // }
+    this.servicemanForm.patchValue({
+      allocation_start_date: moment(this.servicemanForm.value.allocation_start_date).format("YYYY-MM-DD"),
+      allocation_end_date: moment(this.servicemanForm.value.allocation_end_date).format("YYYY-MM-DD"),
+     
+    })
     let formVal = this.servicemanForm.value;
     try {
       let datas;
@@ -164,7 +167,9 @@ export class ServicemansComponent implements OnInit {
       available_hours: values.available_hours || '',
       rating: values.rating || 0,
       ser_long: values.rating || 0,
-      ser_lat: values.rating || 0
+      ser_lat: values.rating || 0,
+      allocation_start_date: new Date(values.allocation_start_date),
+      allocation_end_date: new Date(values.allocation_end_date),
     });
     this.config.editData.servicemans = JSON.parse(values.specializations);
     this.config.editData.id = values.id;
