@@ -20,6 +20,10 @@ export class LandingPageListComponent implements OnInit {
   formMinDate: any = new Date()
   toMinDate: any;
   routeData: {[key: string]: any} = null;
+  latitude;
+  longitude;
+  cityVal;
+  countryVal;
   datePickerConfig = { containerClass: 'theme-red', dateInputFormat: 'YYYY-MM-DD', isAnimated: true };
   autoCompleteData = {
     state: {
@@ -33,6 +37,12 @@ export class LandingPageListComponent implements OnInit {
       placeHolder: 'Search City',
       data: [],
       initialValue: ''
+    },
+    country: {
+      keyword: 'country',
+      placeHolder: 'Search Country',
+      data: [],
+      initialValue: ''
     }
   }
 
@@ -44,7 +54,11 @@ export class LandingPageListComponent implements OnInit {
     //   serviceman: false
     // },
     lookingFor: 'all',
-    rating: null
+    rating: null,
+    range_slider__value:100,
+    latitude:null,
+    longitude:null
+
   }
 
   constructor(
@@ -61,6 +75,7 @@ export class LandingPageListComponent implements OnInit {
       this._getRaceTracks(data.params);
       console.log(this.routeData)
     });
+    this.getUserLocation();
     console.log(this.raceTrackForm)
   }
 
@@ -96,6 +111,15 @@ export class LandingPageListComponent implements OnInit {
     if(this.filterConfig.rating) {
       apiPath += `&rating=${this.filterConfig.rating}`;
     }
+    if(this.filterConfig.range_slider__value) {
+      apiPath += `&range_slider__value=${this.filterConfig.range_slider__value}`;
+    }
+    if(this.filterConfig.latitude) {
+      apiPath += `&latitude=${this.filterConfig.latitude}`;
+    }
+    if(this.filterConfig.longitude) {
+      apiPath += `&latitude=${this.filterConfig.longitude}`;
+    }
 
     let responce = await this._apiSvc.get(apiPath);
 
@@ -109,7 +133,12 @@ export class LandingPageListComponent implements OnInit {
       this.raceTrackObj = null;
     }
     if(!this.autoCompleteData.state.data.length) {
-      this._getStates();
+     // this._getStates(); 
+    } else {
+      this._ngxSpinnerSvc.hide();
+    }
+    if(!this.autoCompleteData.country.data.length) {
+      this._getCountry();
     } else {
       this._ngxSpinnerSvc.hide();
     }
@@ -134,6 +163,7 @@ export class LandingPageListComponent implements OnInit {
       locationFor: [''],
       state: [this.autoCompleteData.state.initialValue],
       city: [this.autoCompleteData.city.initialValue],
+      country: [this.autoCompleteData.country.initialValue],
       searchLoc: [''],
       raceTrack: ['All'],
       availabilityFrom: [''],
@@ -153,7 +183,7 @@ export class LandingPageListComponent implements OnInit {
     let formValue = this.raceTrackForm.value;
     formValue.availabilityFrom = this._getDate(formValue.availabilityFrom);
     formValue.availabilityTo = this._getDate(formValue.availabilityTo);
-    console.log(formValue)
+  //  console.log(formValue)
     this._getRaceTracks(formValue);
   }
 
@@ -202,6 +232,7 @@ export class LandingPageListComponent implements OnInit {
   }
 
   goToRoute(raceTrack) {
+ //   console.log("raceTrack",raceTrack)
     if(raceTrack.racetrack_equipments) {
       this._router.navigate(['/raceTracks', raceTrack.id]);
     }
@@ -235,10 +266,40 @@ export class LandingPageListComponent implements OnInit {
     this._setRaceTrackControlVal();
     
   }
+  private async _getCountry() {
+    let responce = await this._apiSvc.get(`/admin/countries`);
+    if (responce && responce.code === 200 && responce.status === true) {
+      this.autoCompleteData.country.data = responce.data;
+    } else {
+      this.autoCompleteData.country.data = [];
+    }
+    if(this.routeData.country) {
+      this._getCities({country: this.routeData.country});
+    } else {
+      this._ngxSpinnerSvc.hide();
+    }
 
+    this.autoCompleteData.country.initialValue = this.routeData.country;
+    this.autoCompleteData.city.initialValue = this.routeData.city;
 
-  private async _getCities(state) {
+    this._createControls();
+    this._setRaceTrackControlVal();
+    
+  }
+
+  private async _getCitiesOld(state) {
     let responce = await this._apiSvc.post(`/admin/cities`, state);
+    if (responce && responce.code === 200 && responce.status === true) {
+      this.autoCompleteData.city.data = responce.data;
+    } else {
+      this.autoCompleteData.city.data = [];
+    }
+    this._ngxSpinnerSvc.hide();
+  }
+  private async _getCities(country) {
+    console.log("countries",country.country)
+    this.countryVal = country.country;
+    let responce = await this._apiSvc.post(`/admin/cities`, country);
     if (responce && responce.code === 200 && responce.status === true) {
       this.autoCompleteData.city.data = responce.data;
     } else {
@@ -251,16 +312,26 @@ export class LandingPageListComponent implements OnInit {
     if(typeof e === "string") {
       return;
     }
+    if(status === 'city'){
+      this.cityVal = e.city;
+     // console.log("statusdata",e);
+    }
     if(status === 'city') {
       this.raceTrackForm.patchValue({ searchLoc: e.city });
     } else {
       this._getCities(e);
       this.raceTrackForm.patchValue({ searchLoc: '', city: '' });
     }
-    console.log(e);
+ //   console.log(e);
   }
 
   onChangeSearch(e, status) {
+   console.log("edata",e);
+   
+    if(status === 'city'){
+      this.cityVal = e;
+      console.log("statusdata",e);
+    }
     if(!e || !e.length) {
       if(status === 'city') {
         this.raceTrackForm.patchValue({ searchLoc: e.city });
@@ -309,6 +380,26 @@ export class LandingPageListComponent implements OnInit {
     this.filterConfig.rating = val;
     this.submitRaceTrack();
   }
+  getUserLocation() {
+    // get Users current position
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        // this.zoom = 16;
+        //console.log("position", position)
+      });
+    }else{
+      console.log("User not allowed")
+    }
+  }
+    valueChanged(val) {
+      this.filterConfig.range_slider__value = val;
+      this.filterConfig.latitude = this.latitude;
+      this.filterConfig.longitude = this.longitude
+      this.submitRaceTrack();
+    }
 
   resetForm(){
     this.raceTrackForm.reset()

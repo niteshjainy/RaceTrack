@@ -144,7 +144,7 @@ export class SubcategorylistComponent implements OnInit {
   async deleteSubmit() {
     this._ngxSpinnerSvc.show();
     try {
-      let url = `/admin/delete_category?id=${this.deleteId}`;
+      let url = `/admin/delete_subcategory?id=${this.deleteId}`;
       let data = await this.api.get(url)
 
       if (data && data.status) {

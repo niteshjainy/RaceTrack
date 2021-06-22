@@ -67,7 +67,7 @@
                           <div class="form-group">
                             <label>Category Name</label>
                             <div class="input-group">
-                              <select name="" class="form-control" formControlName="category_id" (change)="setId()">
+                              <select name="" class="form-control" formControlName="category_id" >
                                 <option [value]="generalcategories.id"
                                   *ngFor="let generalcategories of generalcategory">
                                   {{generalcategories?.name}}</option>

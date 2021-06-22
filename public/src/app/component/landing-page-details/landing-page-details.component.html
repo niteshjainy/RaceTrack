@@ -13,10 +13,10 @@
         <div class="row">
           <div class="col-md-6">
             <div class="details">
-              <h4>{{ raceTrackDetails.name }}</h4>
+              <h4>{{ raceTrackDetails?.name || '-' }}</h4>
               <rating [(ngModel)]="raceTrackDetails.rating" [max]="5" [readonly]="true"></rating>
 
-              <p>{{ raceTrackDetails.desc }}</p>
+              <p>{{ raceTrackDetails?.desc || '-' }}</p>
               <div class="btn-div">
                 <button type="button" class="btn btn-default" (click)="openModal(gallery)"><i class="fa fa-picture-o" aria-hidden="true"></i> View
                   Gallery</button>
@@ -33,14 +33,14 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-        <h4 class="raceTrackName2" *ngIf="!raceTrackDetails.imageUrls">{{ raceTrackDetails.name }}</h4>
+        <h4 class="raceTrackName2" *ngIf="!raceTrackDetails.imageUrls">{{ raceTrackDetails?.name || '-' }}</h4>
         <div class="details-row">
           <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home">Details of Race Track</a>
             </li>
-            <li class="nav-item" *ngIf="raceTrackDetails.racetrack_equipments"><a class="nav-link" data-toggle="tab"
+            <li class="nav-item" *ngIf="raceTrackDetails?.racetrack_equipments"><a class="nav-link" data-toggle="tab"
                 href="#menu1">Equipment</a></li>
-            <li class="nav-item" *ngIf="raceTrackDetails.racetrack_servicemans"><a class="nav-link" data-toggle="tab"
+            <li class="nav-item" *ngIf="raceTrackDetails?.racetrack_servicemans"><a class="nav-link" data-toggle="tab"
                 href="#menu2">Mehcanic</a></li>
 
           </ul>
@@ -48,8 +48,8 @@
           <div class="tab-content">
             <div id="home" class="tab-pane active">
               <div class="text-div">
-                <h3>{{ raceTrackDetails.name }}</h3>
-                <p>{{ raceTrackDetails.desc }}</p>
+                <h3>{{ raceTrackDetails?.name }}</h3>
+                <p>{{ raceTrackDetails?.desc }}</p>
               </div>
               <div class="text-div">
                 
@@ -70,9 +70,9 @@
               </div>
             </div>
             <div id="menu1" class="tab-pane ">
-              <div class="text-div" *ngFor="let equipment of raceTrackDetails.racetrack_equipments">
-                <h3>{{ equipment.equipments.name }}</h3>
-                <p>{{ equipment.equipments.desc }}</p>
+              <div class="text-div" *ngFor="let equipment of raceTrackDetails?.racetrack_equipments">
+                <h3>{{ equipment?.equipments?.name }}</h3>
+                <p>{{ equipment?.equipments?.desc }}</p>
               </div>
               <div class="text-div">
 
@@ -87,10 +87,10 @@
               </div>
             </div>
             <div id="menu2" class="tab-pane">
-              <div class="text-div" *ngFor="let serviceman of raceTrackDetails.racetrack_servicemans">
-                <h3>{{ serviceman.servicemans.name }}</h3>
+              <div class="text-div" *ngFor="let serviceman of raceTrackDetails?.racetrack_servicemans">
+                <h3>{{ serviceman?.servicemans?.name }}</h3>
                   <ul>
-                    <li *ngFor="let spec of serviceman.servicemans.specializations">{{ spec }}</li>
+                    <li *ngFor="let spec of serviceman?.servicemans?.specializations">{{ spec }}</li>
                   </ul>
               </div>
               <div class="text-div">

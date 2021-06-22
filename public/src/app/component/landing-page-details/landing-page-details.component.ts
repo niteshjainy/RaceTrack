@@ -84,7 +84,10 @@ export class LandingPageDetailsComponent implements OnInit {
 
   private _parseJsonOfMachenics() {
     this.raceTrackDetails.racetrack_servicemans.map(item => {
-      item.servicemans.specializations = JSON.parse(item.servicemans.specializations);
+      if(item && item.servicemans && item.servicemans.specializations ){
+        item.servicemans.specializations = JSON.parse(item.servicemans.specializations);
+      }
+     
     });
   }
 

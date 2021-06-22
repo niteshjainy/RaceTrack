@@ -21,7 +21,7 @@
                     <input type="text" class="form-control" name="location" placeholder="Looking For"
                       formControlName="locationFor" />
                   </div>
-                  <div class="form-group col">
+                  <!-- <div class="form-group col">
                     <ng-autocomplete class="form-control" [data]="autoCompleteData.state.data"
                       [initialValue]="autoCompleteData.state.initialValue"
                       [searchKeyword]="autoCompleteData.state.keyword" (selected)='selectEvent($event, "state")'
@@ -31,6 +31,22 @@
                     </ng-autocomplete>
                     <ng-template #itemTemplate let-item>
                       <a [innerHTML]="item.state"></a>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound class="notFound">
+                      <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                  </div> -->
+                  <div class="form-group col">
+                    <ng-autocomplete class="form-control" [data]="autoCompleteData.country.data"
+                      [initialValue]="autoCompleteData.country.initialValue"
+                      [searchKeyword]="autoCompleteData.country.keyword" (selected)='selectEvent($event, "country")'
+                      [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                      (inputChanged)='onChangeSearch($event, "country")' (inputCleared)='onChangeSearch($event, "country")'
+                      [placeHolder]="autoCompleteData.country.placeHolder" formControlName="country">
+                    </ng-autocomplete>
+                    <ng-template #itemTemplate let-item>
+                      <a [innerHTML]="item.country"></a>
                     </ng-template>
 
                     <ng-template #notFoundTemplate let-notFound class="notFound">
@@ -105,6 +121,14 @@
 <section class="listing-sec">
   <div class="container">
     <div class="row">
+      <div class="col-sm-12" style="margin-left: 951px;
+      text-align: left;
+      font-size: 21px">
+        <strong>Result Count : {{raceTrackObj?.total}}</strong>
+      </div>
+      <div class="col-sm-12" >
+        <strong>Country : {{this.countryVal}}   City : {{this.cityVal}}</strong>
+      </div><br><br>
       <div class="col-sm-3">
         <div class="sidebar">
           <div class="content-box">
@@ -116,7 +140,13 @@
           <div class="content-box">
             <h4>With in</h4>
             <div class="range-slider">
-              <input class="range-slider__range" type="range" value="100" min="0" max="500">
+              
+              <!-- <input class="range-slider__range" type="range" value="100" min="0" max="500" (change)="setRam($event)"> -->
+              <div>
+              <span class="range-slider__value">{{this.filterConfig.range_slider__value}} KM</span>
+              </div>
+              <input  class="range-slider__range" type="range" min="0" max="250" value="100" (input)="valueChanged($event.target.value)">
+
               <span class="range-slider__value">250 KM</span>
             </div>
           </div>
