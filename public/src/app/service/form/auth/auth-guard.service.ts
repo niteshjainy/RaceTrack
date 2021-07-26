@@ -16,10 +16,11 @@ export class AuthGuardService {
     }
 
     canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot):Observable<boolean> | Promise<boolean> | boolean  {
-        console.log(this.cookieService);
+        console.log(this.cookieService.check('login'),"inside auth");
         // return true;
         if (this.cookieService.check('login')) 
         {    
+            console.log("this.cookieService");
             return true;  
         }   
         return false;  

@@ -9,8 +9,10 @@ import { throwError } from 'rxjs';
 
 @Injectable()
 export class ApiService {
-    public endpoint = "http://54.254.226.187/server/api";
-    public imgBasePath = "http://54.254.226.187/server/public/images/Racetracks";
+   // public endpoint = "http://54.254.226.187/server/api";
+   // public imgBasePath = "http://54.254.226.187/server/public/images/Racetracks";
+    public endpoint = "http://54.169.73.89/server/api";
+    public imgBasePath = "http://54.169.73.89/server/public/images/Racetracks";
 
     public httpOptions = {
         headers: new HttpHeaders({

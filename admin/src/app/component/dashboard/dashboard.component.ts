@@ -26,6 +26,7 @@ export class DashboardComponent implements OnInit {
 
   constructor( private api: ApiService, private _ngxSpinnerSvc: NgxSpinnerService) { }
   ngOnInit() {
+    console.log("inside dashboard")
     this._ngxSpinnerSvc.show();
         this.recentRacetracks();
         this.recentCategories();

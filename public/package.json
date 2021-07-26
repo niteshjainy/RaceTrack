@@ -41,7 +41,7 @@
     "md5-typescript": "^1.0.5",
     "moment": "^2.29.1",
     "ng-fullcalendar": "^2.0.3",
-    "ng-multiselect-dropdown": "^0.2.3",
+    "ng-multiselect-dropdown": "0.2.4",
     "ng-pick-datetime": "^7.0.0",
     "ng2-charts": "^2.4.1",
     "ng2-file-upload": "^1.4.0",

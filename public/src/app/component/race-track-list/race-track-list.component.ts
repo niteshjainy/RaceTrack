@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { FormService } from '../../service/form/form.service';
 import { CookieService } from 'ngx-cookie-service';
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
+//import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import $ from 'jquery';
 import { NgxSpinnerService } from 'ngx-spinner';
 // import { element } from '@angular/core/src/render3';

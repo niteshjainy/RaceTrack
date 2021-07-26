@@ -32,6 +32,12 @@ export class LandingPageMainComponent implements OnInit {
       keyword: 'city',
       placeHolder: 'Search City',
       data: []
+    },
+    country: {
+      keyword: 'country',
+      placeHolder: 'Search Country',
+      data: [],
+      initialValue: ''
     }
   }
   datePickerConfig = { containerClass: 'theme-red', dateInputFormat: 'YYYY-MM-DD', isAnimated: true };
@@ -59,6 +65,7 @@ export class LandingPageMainComponent implements OnInit {
     this.raceTrackForm = this._fb.group({
       locationFor: [''],
       state: [''],
+      country: [''],
       city: [''],
       searchLoc: [''],
       raceTrack: ['All', Validators.required],
@@ -78,7 +85,8 @@ export class LandingPageMainComponent implements OnInit {
       availabilityFrom: formValue.availabilityFrom, 
       availabilityTo: formValue.availabilityTo,
       city: formValue.city.city,
-      state: formValue.state.state
+      state: formValue.state.state,
+      country: formValue.country.country,
     }
     this._router.navigate(['/raceTracks'], { queryParams: data });
   }
@@ -117,7 +125,8 @@ export class LandingPageMainComponent implements OnInit {
     } else {
       this.raceTracks = [];
     }
-    this._getStates();
+    //this._getStates();
+    this._getCountry();
     
   }
 
@@ -149,8 +158,22 @@ export class LandingPageMainComponent implements OnInit {
     }
     this._ngxSpinnerSvc.hide();
   }
-  private async _getCities(state) {
-    let responce = await this._apiSvc.post(`/admin/cities`, state);
+  private async _getCountry() {
+    let responce = await this._apiSvc.get(`/admin/countries`);
+    if (responce && responce.code === 200 && responce.status === true) {
+      this.autoCompleteData.country.data = responce.data;
+      // this.states.map(item => {
+      //   item.name = item.state;
+      //   delete item.state;
+      //   return item;
+      // })
+    } else {
+      this.autoCompleteData.country.data = [];
+    }
+    this._ngxSpinnerSvc.hide();
+  }
+  private async _getCities(country) {
+    let responce = await this._apiSvc.post(`/admin/cities`, country);
     if (responce && responce.code === 200 && responce.status === true) {
       this.autoCompleteData.city.data = responce.data;
     } else {

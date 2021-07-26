@@ -19,7 +19,7 @@ export class ServicemanComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _toastrSvc: ToastrService,
     public formService: FormService) { }
-  // servicemanList
+  servicemanList;
   servicemanConfig;
   currentPage = 1;
   maxSize = 5;
@@ -57,7 +57,7 @@ export class ServicemanComponent implements OnInit {
     // try {
       let data = await this.api.get(`/admin/servicemans?pagination=1&page=${this.currentPage}`);
       if (data.status == true) {
-        // this.servicemanList = data.data.data;
+         this.servicemanList = data.data.data;
         this.servicemanConfig = data.data;
       } else {
       }

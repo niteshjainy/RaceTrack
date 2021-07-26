@@ -199,7 +199,7 @@
                             <label>Allocation Start Date : <span class="text-danger">*</span></label>
                             <div class="input-group">
                               <input type="text" class="form-control" formControlName="allocation_start_date"
-                                (ngModelChange)="onChangeStart($event)" [min]="todayDate" [owlDateTimeTrigger]="dt1"
+                                (ngModelChange)="onChangeStart($event)" [owlDateTimeTrigger]="dt1"
                                 [owlDateTime]="dt1" placeholder="Allocation Start Date">
                               <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
                               <p *ngIf="formService.validate(form,'allocation_start_date')" class="invalid-feed">
@@ -213,7 +213,7 @@
                             <label>Allocation End Date : <span class="text-danger">*</span></label>
                             <div class="input-group">
                               <input type="text" class="form-control" formControlName="allocation_end_date"
-                                (ngModelChange)="onChangeEnd($event)" [min]="todayDate" [owlDateTimeTrigger]="dt2"
+                                (ngModelChange)="onChangeEnd($event)"  [owlDateTimeTrigger]="dt2"
                                 [owlDateTime]="dt2" placeholder="Allocation End Date">
                               <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
                               <p *ngIf="formService.validate(form,'allocation_end_date')" class="invalid-feed">

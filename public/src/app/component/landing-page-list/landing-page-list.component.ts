@@ -73,7 +73,8 @@ export class LandingPageListComponent implements OnInit {
     this._actRoute.queryParamMap.subscribe((data: any) => {
       this.routeData = data.params;
       this._getRaceTracks(data.params);
-      console.log(this.routeData)
+      this.cityVal = this.routeData.city?this.routeData.city:''
+     // console.log( this.routeData,"intial")
     });
     this.getUserLocation();
     console.log(this.raceTrackForm)
@@ -385,6 +386,7 @@ export class LandingPageListComponent implements OnInit {
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
+        console.log("position",position)
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
         // this.zoom = 16;
@@ -402,6 +404,8 @@ export class LandingPageListComponent implements OnInit {
     }
 
   resetForm(){
+    this.cityVal='';
+    this.countryVal='';
     this.raceTrackForm.reset()
   }
 

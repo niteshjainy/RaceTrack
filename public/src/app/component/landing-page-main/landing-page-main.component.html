@@ -15,9 +15,8 @@
                   <i class="fa fa-search" aria-hidden="true"></i>
                 </span>
               </div>
-              <div class="form-group col-md-12">
+              <!-- <div class="form-group col-md-12">
                 <span class="input-group">
-                  <!-- <input type="search" class="form-control" id="Name" placeholder="Search by location" formControlName="searchLoc" /> -->
                   <ng-autocomplete 
                   class="form-control"
                   [data]="autoCompleteData.state.data"
@@ -36,7 +35,29 @@
                   <div [innerHTML]="notFound"></div>
                   </ng-template>
                 </span>
+              </div> -->
+              <div class="form-group col-md-12">
+                <span class="input-group">
+                  <ng-autocomplete 
+                  class="form-control"
+                  [data]="autoCompleteData.country.data"
+                  [searchKeyword]="autoCompleteData.country.keyword"
+                  (selected)='selectEvent($event, "country")'
+                  [itemTemplate]="itemTemplate"
+                  [notFoundTemplate]="notFoundTemplate"
+                  [placeHolder]="autoCompleteData.country.placeHolder" formControlName="country"
+                  >                                 
+                </ng-autocomplete>
+                <ng-template #itemTemplate let-item>
+                  <a [innerHTML]="item.country"></a>
+                  </ng-template>
+                   
+                  <ng-template #notFoundTemplate let-notFound>
+                  <div [innerHTML]="notFound"></div>
+                  </ng-template>
+                </span>
               </div>
+             
               <div class="form-group col-md-12">
                 <span class="input-group">
                   <input type="hidden" formControlName="searchLoc" />

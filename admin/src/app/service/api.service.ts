@@ -12,8 +12,12 @@ export class ApiService {
     // public endpoint = "http://ec2-54-72-157-102.eu-west-1.compute.amazonaws.com/racetrack/server/api";
     // public imgBasePath = "http://ec2-54-72-157-102.eu-west-1.compute.amazonaws.com/racetrack/server/public/images/Racetracks";
 
-    public endpoint = "http://54.254.226.187/server/api";
-    public imgBasePath = "http://54.254.226.187/server/public/images/Racetracks";
+    //public endpoint = "http://54.254.226.187/server/api";
+   // public imgBasePath = "http://54.254.226.187/server/public/images/Racetracks";
+
+    public endpoint = "http://54.169.73.89/server/api";
+    public imgBasePath = "http://54.169.73.89/server/public/images/Racetracks";
+    
     public httpOptions = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json'

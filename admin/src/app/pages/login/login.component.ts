@@ -50,15 +50,17 @@ export class LoginComponent implements OnInit {
         this._ngxSpinnerSvc.show();
         let data = await this.api.post("/auth/login", this.form.value)
         this.loginData = data.data;
-        console.log(this.loginData)
+      
         if (data.status == true) {
           console.log(data)
           // this.cookieService.set("login", this.loginData); // Old one not working
-
-          // For Production
+          console.log(this.loginData,"this.loginData")
+         
           // this.cookieService.set('login', JSON.stringify(this.loginData), 1 , '/', 'ec2-54-72-157-102.eu-west-1.compute.amazonaws.com', false, "Lax" );
-          this.cookieService.set('login', JSON.stringify(this.loginData), 1, '/', 'localhost', false, "Lax");
-          this.cookieService.set('login', JSON.stringify(this.loginData), 1, '/', '127.0.0.1:8080', false, "Lax");
+      //  this.cookieService.set('login', JSON.stringify(this.loginData), 1, '/', 'localhost', false, "Lax");
+          
+         // For Production comment all cokkies expect this
+          this.cookieService.set('login', JSON.stringify(this.loginData), 1, '/', '54.169.73.89', false, "Lax");
           
           
           // For Development
